@@ -1,7 +1,7 @@
 import { Icon as ReactFeatherIcon } from "react-feather";
-import { useLocation, matchPath, NavLink as RouterLink } from "react-router-dom";
 import { Button, ListItem } from '@material-ui/core';
 import useStyles from './styles';
+import { useHistory } from "react-router-dom";
 
 type NavItemProps = {
     href: string;
@@ -10,16 +10,9 @@ type NavItemProps = {
 }
 
 const NavItem = ({ href, icon: Icon, title }: NavItemProps) => {
-
-    const location = useLocation();
     const classes = useStyles();
+    const history = useHistory();
 
-    const active = href ? !!matchPath(href, {
-        path: href,
-        exact: true,
-        strict: false
-    }) : false;
-    console.log(active)
     return (
         <ListItem
             disableGutters={true}
@@ -27,6 +20,7 @@ const NavItem = ({ href, icon: Icon, title }: NavItemProps) => {
         >
             <Button
                 className={classes.button}
+                onClick={() => history.push(href)}
             >
                 {Icon && (
                     <Icon size="20"/>

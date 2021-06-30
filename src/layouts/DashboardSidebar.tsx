@@ -1,6 +1,5 @@
 import { Avatar, Box, Divider, Drawer, List, Typography } from "@material-ui/core";
-import { useEffect } from "react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import {
     AlertCircle as AlertCircleIcon,
     BarChart as BarChartIcon,
@@ -68,13 +67,6 @@ type DashboardSidebarProps = {
 }
 
 const DashboardSidebar = ({ onMobileClose, openMobile }: DashboardSidebarProps) => {
-    const location = useLocation();
-
-    useEffect(() => {
-        if (openMobile && onMobileClose) {
-            onMobileClose();
-        }
-    }, [location.pathname]);
 
     const sidebarContent = (
         <Box

@@ -1,4 +1,3 @@
-import { useState, Dispatch, SetStateAction } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { AppBar, Toolbar, Box, IconButton, Badge } from "@material-ui/core";
 import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
@@ -11,8 +10,7 @@ type DashboardNavbarProps = {
 }
 
 const DashboardNavbar = (props: DashboardNavbarProps) => {
-    const [notifications] = useState([]);
-
+    
     return (
         <AppBar position="static">
             <Toolbar>

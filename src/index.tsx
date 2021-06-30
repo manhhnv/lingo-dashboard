@@ -6,11 +6,11 @@ import reportWebVitals from './reportWebVitals';
 import { HelmetProvider } from "react-helmet-async";
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <HelmetProvider>
       <App />
-    </HelmetProvider>
-  </React.StrictMode>,
+    </HelmetProvider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

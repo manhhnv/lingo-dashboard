@@ -26,6 +26,7 @@ const Book = (props: BookProps) => {
                     <Grid item>
                         <img
                             src={props.cover}
+                            alt={props.bookName}
                         />
                     </Grid>
                     <Grid item>

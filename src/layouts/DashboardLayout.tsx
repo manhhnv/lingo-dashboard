@@ -4,7 +4,7 @@ import DashboardSidebar from "./DashboardSidebar";
 
 
 type DashboardLayoutProps = {
-    children?: JSX.Element
+    children?: JSX.Element;
 }
 
 const DashboardLayout = (props: DashboardLayoutProps) => {
@@ -14,10 +14,10 @@ const DashboardLayout = (props: DashboardLayoutProps) => {
     return (
         <Fragment>
             <DashboardNavbar
-                onMobileClose={() => setMobileNavOpen(!isMobileNavOpen)}
+                onMobileClose={() => setMobileNavOpen(true)}
             />
             <DashboardSidebar
-                onMobileClose={() => setMobileNavOpen(!isMobileNavOpen)}
+                onMobileClose={() => setMobileNavOpen(false)}
                 openMobile={isMobileNavOpen}
             />
             <div
