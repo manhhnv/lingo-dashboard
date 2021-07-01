@@ -1,5 +1,5 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Login from "../pages/Login";
+import Login from "../pages/app/Login";
 import NotFound from "../pages/error";
 import Dashboard from "../pages/app/dashboard";
 

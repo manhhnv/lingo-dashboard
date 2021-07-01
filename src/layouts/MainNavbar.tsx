@@ -8,7 +8,7 @@ const MainNavbar = () => (
   >
     <Toolbar
     >
-      <RouterLink to="/">
+      <RouterLink to="/app/dashboard">
         <Logo />
       </RouterLink>
     </Toolbar>

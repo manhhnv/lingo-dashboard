@@ -1,65 +1,48 @@
-import { Card, CardContent, Grid, Typography } from "@material-ui/core";
+import { Avatar, Card, CardContent, Grid, Typography } from "@material-ui/core";
 import useStyles from "./styles";
-
+import FolderIcon from "@material-ui/icons/FolderOpenRounded";
+import { getBooksByGrade } from "../../apis/book";
+import { Admin } from "../../types/Admin";
 
 type BookProps = {
-    cover: string;
-    totalUnits: number;
-    bookId: string;
-    bookName: string;
+    grade: number;
+    admin?: Admin;
 }
 
 const Book = (props: BookProps) => {
-
     const classes = useStyles();
-
+    const clickBookHandle = () => {
+        if (props.admin?.token) {
+            getBooksByGrade(props.admin.token, props.grade)
+        }
+    }
     return (
         <Card
             className={classes.root}
+            onClick={clickBookHandle}
         >
             <CardContent>
                 <Grid
                     container
-                    spacing={1}
+                    spacing={3}
                     className={classes.cardContentContainer}
                 >
                     <Grid item>
-                        <img
-                            src={props.cover}
-                            alt={props.bookName}
-                        />
+                        <Typography
+                            color="textPrimary"
+                            style={{
+                                margin: 0,
+                                fontWeight: 500,
+                                fontSize: "15px",
+                            }}
+                        >
+                            {`Sách lớp ${props.grade}`.toUpperCase()}
+                        </Typography>
                     </Grid>
                     <Grid item>
-                        <Typography
-                            color="textPrimary"
-                            gutterBottom={true}
-                            variant="h6"
-                            style={{
-                                margin: 0,
-                                fontWeight: 500,
-                                fontSize: "14px",
-                                letterSpacing: "-0.05px",
-                                lineHeight: 1.6,
-                                marginBottom: "0.35em",
-                                color: "#6b778c"
-                            }}
-                        >
-                            {props.bookName}
-                        </Typography>
-                        <Typography
-                            color="textPrimary"
-                            variant="h3"
-                            style={{
-                                margin: 0,
-                                fontWeight: 500,
-                                fontSize: "24px",
-                                letterSpacing: "-0.05px",
-                                lineHeight: 1.6,
-                                marginBottom: "0.35em",
-                            }}
-                        >
-                            {props.totalUnits} Units
-                        </Typography>
+                        <Avatar>
+                            <FolderIcon/>
+                        </Avatar>
                     </Grid>
                 </Grid>
             </CardContent>

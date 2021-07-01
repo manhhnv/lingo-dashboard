@@ -1,8 +1,31 @@
 import { Box, Container, Grid } from "@material-ui/core";
 import Book from "../../../components/Book";
 import DashboardLayout from "../../../layouts/DashboardLayout";
+import { connect } from "react-redux";
+import { RootState } from "../../../redux/slices";
+import React from 'react';
+import { Admin } from "../../../types/Admin";
+import { Redirect } from "react-router";
 
-const Dashboard = () => {
+interface DashboardProps {
+    admin?: Admin
+}
+
+const Dashboard = (props: DashboardProps) => {
+
+    const books = [1, 2, 3, 4, 5, 6,
+        7, 8, 9, 10, 11, 12].map(grade => (
+            <Grid
+                item
+                lg={2}
+                sm={6}
+                xl={3}
+                xs={12}
+                key={grade}
+            >
+                <Book grade={grade} admin={props?.admin}/>
+            </Grid>
+        ))
 
     const content = (
         <Box
@@ -14,154 +37,27 @@ const Dashboard = () => {
                     container={true}
                     spacing={3}
                 >
-                    <Grid
-                        item
-                        lg={3}
-                        sm={6}
-                        xl={3}
-                        xs={12}
-                    >
-                        <Book
-                            cover="https://s.sachmem.vn/public/bookcovers/TA1V2SHS_head.jpg"
-                            bookId="tienganh1macmillan"
-                            bookName="Tiếng Anh 1 Macmillan"
-                            totalUnits={15}
-                        />
-                    </Grid>
-                    <Grid
-                        item
-                        lg={3}
-                        sm={6}
-                        xl={3}
-                        xs={12}
-                    >
-                        <Book
-                            cover="https://s.sachmem.vn/public/bookcovers/TA1V2SHS_head.jpg"
-                            bookId="tienganh1macmillan"
-                            bookName="Tiếng Anh 1 Macmillan"
-                            totalUnits={15}
-                        />
-                    </Grid>
-                    <Grid
-                        item
-                        lg={3}
-                        sm={6}
-                        xl={3}
-                        xs={12}
-                    >
-                        <Book
-                            cover="https://s.sachmem.vn/public/bookcovers/TA1V2SHS_head.jpg"
-                            bookId="tienganh1macmillan"
-                            bookName="Tiếng Anh 1 Macmillan"
-                            totalUnits={15}
-                        />
-                    </Grid>
-                    <Grid
-                        item
-                        lg={3}
-                        sm={6}
-                        xl={3}
-                        xs={12}
-                    >
-                        <Book
-                            cover="https://s.sachmem.vn/public/bookcovers/TA1V2SHS_head.jpg"
-                            bookId="tienganh1macmillan"
-                            bookName="Tiếng Anh 1 Macmillan"
-                            totalUnits={15}
-                        />
-                    </Grid>
-                    <Grid
-                        item
-                        lg={3}
-                        sm={6}
-                        xl={3}
-                        xs={12}
-                    >
-                        <Book
-                            cover="https://s.sachmem.vn/public/bookcovers/TA1V2SHS_head.jpg"
-                            bookId="tienganh1macmillan"
-                            bookName="Tiếng Anh 1 Macmillan"
-                            totalUnits={15}
-                        />
-                    </Grid>
-                    <Grid
-                        item
-                        lg={3}
-                        sm={6}
-                        xl={3}
-                        xs={12}
-                    >
-                        <Book
-                            cover="https://s.sachmem.vn/public/bookcovers/TA1V2SHS_head.jpg"
-                            bookId="tienganh1macmillan"
-                            bookName="Tiếng Anh 1 Macmillan"
-                            totalUnits={15}
-                        />
-                    </Grid>
-                    <Grid
-                        item
-                        lg={3}
-                        sm={6}
-                        xl={3}
-                        xs={12}
-                    >
-                        <Book
-                            cover="https://s.sachmem.vn/public/bookcovers/TA1V2SHS_head.jpg"
-                            bookId="tienganh1macmillan"
-                            bookName="Tiếng Anh 1 Macmillan"
-                            totalUnits={15}
-                        />
-                    </Grid>
-                    <Grid
-                        item
-                        lg={3}
-                        sm={6}
-                        xl={3}
-                        xs={12}
-                    >
-                        <Book
-                            cover="https://s.sachmem.vn/public/bookcovers/TA1V2SHS_head.jpg"
-                            bookId="tienganh1macmillan"
-                            bookName="Tiếng Anh 1 Macmillan"
-                            totalUnits={15}
-                        />
-                    </Grid>
-                    <Grid
-                        item
-                        lg={3}
-                        sm={6}
-                        xl={3}
-                        xs={12}
-                    >
-                        <Book
-                            cover="https://s.sachmem.vn/public/bookcovers/TA1V2SHS_head.jpg"
-                            bookId="tienganh1macmillan"
-                            bookName="Tiếng Anh 1 Macmillan"
-                            totalUnits={15}
-                        />
-                    </Grid>
-                    <Grid
-                        item
-                        lg={3}
-                        sm={6}
-                        xl={3}
-                        xs={12}
-                    >
-                        <Book
-                            cover="https://s.sachmem.vn/public/bookcovers/TA1V2SHS_head.jpg"
-                            bookId="tienganh1macmillan"
-                            bookName="Tiếng Anh 1 Macmillan"
-                            totalUnits={15}
-                        />
-                    </Grid>
+                    {books}
                 </Grid>
             </Container>
         </Box>
     )
 
     return (
-        <DashboardLayout children={content}/>
+        <React.Fragment>
+            {props?.admin?.token ? (
+                <DashboardLayout children={content} />
+            ) : (
+                <Redirect to='/login' exact />
+            )}
+        </React.Fragment>
     )
 };
 
-export default Dashboard;
+const mapStateToProps = (state: RootState) => {
+    return {
+        admin: state.admin
+    }
+}
+
+export default connect(mapStateToProps, null)(React.memo(Dashboard));

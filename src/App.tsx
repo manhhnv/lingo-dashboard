@@ -1,14 +1,26 @@
 import './App.css';
 import GlobalStyles from './components/GlobalStyles';
 import AppRouter from './routers/routers';
+import { AdminContext } from './AdminContext';
+import { connect } from 'react-redux';
+import { RootState } from './redux/slices';
 
-function App() {
+function App(props: any) {
+
   return (
-    <div className="App">
-      <GlobalStyles/>
-      <AppRouter/>
-    </div>
+    <AdminContext.Provider value={{admin: props.admin}}>
+      <div className="App">
+        <GlobalStyles />
+        <AppRouter />
+      </div>
+    </AdminContext.Provider>
   );
 }
 
-export default App;
+const mapStateToProps = (state: RootState) => {
+  return {
+    admin: state.admin
+  }
+}
+
+export default connect(mapStateToProps, null)(App);
