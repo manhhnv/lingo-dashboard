@@ -8,7 +8,7 @@ const useBooks = (grade: number, token?: string,) => {
         }
     }
     return {
-        books: []
+        books: null
     }
 }
 

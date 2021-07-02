@@ -1,29 +1,48 @@
-import { Button } from "@material-ui/core";
+import { Box, Card, CardContent, Container, Grid, Typography } from "@material-ui/core";
 import DashboardLayout from "../../../layouts/DashboardLayout";
 import { Redirect, RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
 import { RootState } from "../../../redux/slices";
-import React from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Admin } from "../../../types/Admin";
-import useBooks from "../../../hooks/useBooks";
+import { Book } from "../../../types/Books";
+import { getBooksByGrade } from "../../../apis/book";
+import { Helmet } from "react-helmet-async";
+import ListBokComponent from "../../../components/Book/ListBook";
 
 type ListBookProps = {
     admin?: Admin
-} & RouteComponentProps<{grade: string}>
+} & RouteComponentProps<{ grade: string }>
 
 const ListBook = (props: ListBookProps) => {
-    
-    console.log(props.match.params.grade)
 
-    const content = (
-        <Button></Button>
-    )
-    const { books } = useBooks(Number(props.match.params.grade), props.admin?.token)
+    const [books, setBooks] = useState() as [Array<Book>, Dispatch<SetStateAction<Book[]>>];
+
+    useEffect(() => {
+        if (props.admin?.token) {
+            getBooksByGrade(props.admin.token, Number(props.match.params.grade))
+                .then(data => {
+                    setBooks(data);
+                })
+        }
+    }, [props.admin?.token, props.match.params.grade])
+
     return (
         <>
             {props.admin && props.admin.token ? (
                 <DashboardLayout>
-                    {content}
+                    <Box minHeight={"100%"} py={3}>
+                        <Helmet>
+                            <title>Sách lớp {props.match.params.grade}</title>
+                        </Helmet>
+                        {books && books.length > 0   ? (
+                            <ListBokComponent books={books} />
+                        ) : (
+                            <Typography>
+                                NO BOOKS IN GRADE
+                            </Typography>
+                        )}
+                    </Box>
                 </DashboardLayout>
             ) : (
                 <Redirect to="/login" />
