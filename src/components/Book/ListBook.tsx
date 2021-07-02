@@ -30,7 +30,7 @@ const ListBookComponent = ({ books }: ListBookComponentProps) => {
                                             <Grid item>
                                                 <img
                                                     src={book.cover}
-                                                    alt="Book Image"
+                                                    alt="BookImage"
                                                 />
                                             </Grid>
                                             <Grid item>
