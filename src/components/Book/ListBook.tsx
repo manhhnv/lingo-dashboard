@@ -23,7 +23,7 @@ const ListBookComponent = ({ books }: ListBookComponentProps) => {
                             item
                             xs={12}
                         >
-                            <Link to='/app/dashboard'>
+                            <Link to={`/app/dashboard/units/${book._id}`}>
                                 <Card>
                                     <CardContent>
                                         <Grid container={true} spacing={1}>

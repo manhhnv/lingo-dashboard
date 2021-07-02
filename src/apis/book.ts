@@ -9,7 +9,6 @@ export const getBooksByGrade = async (token: string, grade: number) => {
             }
         });
         if (res.status === 200 && res.data) {
-            console.log(res.data);
             return res.data;
         }
         else {
