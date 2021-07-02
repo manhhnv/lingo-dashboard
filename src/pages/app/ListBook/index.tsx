@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Container, Grid, Typography } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import DashboardLayout from "../../../layouts/DashboardLayout";
 import { Redirect, RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
