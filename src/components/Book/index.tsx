@@ -1,8 +1,8 @@
 import { Avatar, Card, CardContent, Grid, Typography } from "@material-ui/core";
 import useStyles from "./styles";
 import FolderIcon from "@material-ui/icons/FolderOpenRounded";
-import { getBooksByGrade } from "../../apis/book";
 import { Admin } from "../../types/Admin";
+import { Link } from "react-router-dom";
 
 type BookProps = {
     grade: number;
@@ -11,42 +11,42 @@ type BookProps = {
 
 const Book = (props: BookProps) => {
     const classes = useStyles();
-    const clickBookHandle = () => {
-        if (props.admin?.token) {
-            getBooksByGrade(props.admin.token, props.grade)
-        }
-    }
+
     return (
-        <Card
-            className={classes.root}
-            onClick={clickBookHandle}
-        >
-            <CardContent>
-                <Grid
-                    container
-                    spacing={3}
-                    className={classes.cardContentContainer}
-                >
-                    <Grid item>
-                        <Typography
-                            color="textPrimary"
-                            style={{
-                                margin: 0,
-                                fontWeight: 500,
-                                fontSize: "15px",
-                            }}
-                        >
-                            {`Sách lớp ${props.grade}`.toUpperCase()}
-                        </Typography>
+        <Link to={{
+            pathname: `/app/dashboard/books/${props.grade}`,
+            state: {grade: props.grade}
+        }}>
+            <Card
+                className={classes.root}
+            >
+                <CardContent>
+                    <Grid
+                        container
+                        spacing={3}
+                        className={classes.cardContentContainer}
+                    >
+                        <Grid item>
+                            <Typography
+                                color="textPrimary"
+                                style={{
+                                    margin: 0,
+                                    fontWeight: 500,
+                                    fontSize: "15px",
+                                }}
+                            >
+                                {`Sách lớp ${props.grade}`.toUpperCase()}
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Avatar>
+                                <FolderIcon />
+                            </Avatar>
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <Avatar>
-                            <FolderIcon/>
-                        </Avatar>
-                    </Grid>
-                </Grid>
-            </CardContent>
-        </Card>
+                </CardContent>
+            </Card>
+        </Link>
     )
 
 }

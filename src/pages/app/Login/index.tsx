@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import MainNavbar from "../../../layouts/MainNavbar";
@@ -18,9 +18,7 @@ interface LoginProps {
 }
 
 const Login = (props: LoginProps) => {
-    const [success, setSuccess] = useState(false);
     const loginHandle = async (email: string, password: string) => {
-        setSuccess(true);
         const data = await adminLogin(email, password);
         if (data && props?.login) {
             props.login({
@@ -30,13 +28,7 @@ const Login = (props: LoginProps) => {
                 token: data.token
             })
         }
-        else {
-            console.log('abc')
-        }
     }
-    useEffect(() => {
-        console.log(success)
-    }, [success])
     return (
         <React.Fragment>
             {props.admin?.token && (
@@ -46,11 +38,6 @@ const Login = (props: LoginProps) => {
                 <title>Đăng nhập | Lingo Admin</title>
             </Helmet>
             <MainNavbar />
-            {/* <CustomizedSnackbars
-                open={success}
-                message="Error"
-                severity="error"
-            /> */}
             <Box
                 css={{
                     display: 'flex',

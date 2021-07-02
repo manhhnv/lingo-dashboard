@@ -1,16 +1,22 @@
 import { BaseUrl } from './baseUrl';
 import Axios from 'axios';
 
-export const getBooksByGrade = (token: string, grade: number) => {
-    Axios.get(`${BaseUrl}/api/books/grade/${grade}`, {
+export const getBooksByGrade = async (token: string, grade: number) => {
+    return Axios.get(`${BaseUrl}/api/books/grade/${grade}`, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
     })
-    .then(res => {
-        console.log(res.data);
-    })
-    .catch(error => {
-        console.log(error);
-    })
+        .then(res => {
+            if (res.status === 200 && res.data) {
+                console.log(res.data)
+                return res.data;
+            }
+            else {
+                return null;
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        })
 }

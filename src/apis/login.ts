@@ -22,3 +22,19 @@ export const adminLogin = async (email: string, password: string) => {
         return null;
     })
 }
+
+export const getProfile = async (token: string) => {
+    return Axios.get(`${BaseUrl}/api/user/profile`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(res => {
+        if (res.status === 200 && res.data) {
+            return res.data;
+        }
+    })
+    .catch(error => {
+        throw error;
+    })
+}
