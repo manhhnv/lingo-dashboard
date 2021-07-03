@@ -31,7 +31,7 @@ const ListBook = (props: ListBookProps) => {
         <>
             {props.admin && props.admin.token ? (
                 <DashboardLayout>
-                    <Box minHeight={"100%"} py={3}>
+                    <Box minHeight={"100%"} pt={3} pb={10}>
                         <Helmet>
                             <title>Sách lớp {props.match.params.grade}</title>
                         </Helmet>

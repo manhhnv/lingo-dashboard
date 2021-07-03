@@ -36,7 +36,7 @@ const ListUnit = () => {
                             <title></title>
                         </Helmet>
                         {units && (
-                            <Box minHeight={"100%"} py={3}>
+                            <Box minHeight={"100%"} pt={3} pb={10}>
                                 <ListUnitComponent units={units}/>
                             </Box>
                         )}
