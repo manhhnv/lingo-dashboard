@@ -4,6 +4,7 @@ import NotFound from "../pages/error";
 import Dashboard from "../pages/app/dashboard";
 import ListBook from "../pages/app/ListBook";
 import ListUnit from "../pages/app/ListUnit";
+import PageListLevel from "../pages/app/ListLevel";
 
 const AppRouter = () => {
     return (
@@ -18,6 +19,11 @@ const AppRouter = () => {
                     exact={true}
                     path="/app/dashboard/units/:bookId"
                     component={ListUnit}
+                />
+                <Route
+                    exact={true}
+                    path="/app/dashboard/:bookId/:unitId/levels"
+                    component={PageListLevel}
                 />
                 <Route
                     exact={true}

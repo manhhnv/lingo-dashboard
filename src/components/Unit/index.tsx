@@ -16,7 +16,7 @@ const UnitComponent = ({unit}: UnitProps) => {
             item
             xs={12}
         >
-            <Link to='/404'>
+            <Link to=''>
                 <Card>
                     <CardContent>
                         <Grid container={true} spacing={1}>
