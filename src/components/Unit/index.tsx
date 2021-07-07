@@ -1,6 +1,6 @@
 import { Card, CardContent, Grid, Typography } from '@material-ui/core';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { Unit } from '../../types/Unit';
 
 type UnitProps = {
@@ -8,6 +8,9 @@ type UnitProps = {
 }
 
 const UnitComponent = ({unit}: UnitProps) => {
+
+    const match = useRouteMatch<{bookId: string}>();
+
     return (
         <Grid
             sm={6}
@@ -16,7 +19,7 @@ const UnitComponent = ({unit}: UnitProps) => {
             item
             xs={12}
         >
-            <Link to=''>
+            <Link to={`/app/dashboard/levels/${match.params.bookId}/${unit._id}`}>
                 <Card>
                     <CardContent>
                         <Grid container={true} spacing={1}>

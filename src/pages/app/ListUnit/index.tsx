@@ -21,7 +21,6 @@ const ListUnit = () => {
         if (admin.token) {
             getUnitsInBook(admin.token, routeMatch.params.bookId)
                 .then(data => {
-                    console.log(data.units)
                     setUnits(data.units);
                 })
         }

@@ -5,6 +5,7 @@ import Dashboard from "../pages/app/dashboard";
 import ListBook from "../pages/app/ListBook";
 import ListUnit from "../pages/app/ListUnit";
 import PageListLevel from "../pages/app/ListLevel";
+import PageListQuestion from "../pages/app/ListQuestion";
 
 const AppRouter = () => {
     return (
@@ -22,8 +23,13 @@ const AppRouter = () => {
                 />
                 <Route
                     exact={true}
-                    path="/app/dashboard/:bookId/:unitId/levels"
+                    path="/app/dashboard/levels/:bookId/:unitId"
                     component={PageListLevel}
+                />
+                <Route
+                    exact={true}
+                    path="/app/dashboard/questions/:bookId/:unitId/:levelIndex"
+                    component={PageListQuestion}
                 />
                 <Route
                     exact={true}
