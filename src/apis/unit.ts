@@ -12,7 +12,6 @@ export const getUnitsInBook = async (token: string, bookId: string) => {
             }
         )
         if (res.status === 200 && res.data) {  
-            console.log(res.data);                
             return res.data;
         }
         return null;

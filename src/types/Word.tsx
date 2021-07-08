@@ -11,3 +11,14 @@ export type WordSplit = {
     text: string,
     wordId: string
 }
+
+export type WordInQuestion = {
+    meaning: string,
+    image: string,
+    hash: string,
+    audio: string,
+    isCorrect: boolean,
+    content: string,
+    wordId: string,
+    questionId: string
+}

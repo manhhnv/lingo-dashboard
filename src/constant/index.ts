@@ -36,3 +36,6 @@ export const MultipleChoiceCode: QuestionTypeCode[] = [
     QuestionTypeCode.S10,
     QuestionTypeCode.S7,
 ]
+
+export const BaseImageUrl = 'https://s.sachmem.vn/public/dics_stable';
+export const BaseAudioUrl = 'https://s.sachmem.vn/public/audio/dictionary2';

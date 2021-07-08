@@ -1,5 +1,6 @@
 import { ListWorQuestionCodes } from '../../../constant/index';
 import { WordQuestion, SentenceQuestion } from '../../../types/Question';
+
 export const reduceQuestions = (listQuestions: Array<WordQuestion | SentenceQuestion>) => {
     const wordQuestions: WordQuestion[] = [];
     const sentenceQuestions: SentenceQuestion[] = [];
@@ -11,11 +12,8 @@ export const reduceQuestions = (listQuestions: Array<WordQuestion | SentenceQues
         else {
             sentenceQuestions.push(item as SentenceQuestion)
         }
+        return null;
     });
-    console.log({
-        wordQuestions,
-        sentenceQuestions
-    })
     return {
         wordQuestions,
         sentenceQuestions

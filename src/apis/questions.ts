@@ -42,3 +42,38 @@ export const getQuestionsInLevel = async (input: QuestionsLevelInput) => {
         throw error;
     }
 }
+
+export type ChangeQuestionChoice = {
+    bookId: string;
+    unitId: string;
+    levelIndex: number;
+    questionId: string;
+    choiceId: string;
+}
+
+export const removeChoice = async (token: string, input: ChangeQuestionChoice) => {
+    try {
+        const {
+            bookId,
+            unitId,
+            levelIndex,
+            questionId,
+            choiceId
+        } = input;
+        const res = await axios.put(
+            `${BaseUrl}/api/admin/question/${bookId}/${unitId}/${levelIndex}/removeChoice`,
+            {
+                questionId: questionId,
+                choiceId: choiceId
+            },
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+}

@@ -1,4 +1,5 @@
-import { QuestionTypeCode } from "../enum"
+import { QuestionTypeCode } from "../enum";
+import { WordInQuestion } from "../types/Word";
 
 export type MultipleChoiceQuestion = {
     _id: string,
@@ -45,3 +46,11 @@ export type SentenceQuestion = {
 }
 
 export type Question = WordQuestion | SentenceQuestion;
+
+export type MappedWordQuestion = Omit<WordInQuestion, "isCorrect" | "wordId"> & {
+    questionId: string;
+    choices: WordInQuestion[];
+    content: string;
+    code: QuestionTypeCode;
+    focusId: string;
+}
