@@ -1,18 +1,17 @@
-import axios from "axios";
-import { BaseUrl } from "./baseUrl";
+import axios from "axios"
+import { BaseUrl } from "./baseUrl"
 
-export const getUnitsInBook = async (token: string, bookId: string) => {
+export const sentencesInPrevBooks = async (token: string | undefined, bookNId: number) => {
     try {
         const res = await axios.get(
-            `${BaseUrl}/api/book/${bookId}/units`,
+            `${BaseUrl}/api/sentences/${bookNId}/previous`,
             {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             }
         )
-        if (res.status === 200 && res.data) {  
-            console.log(res.data);                
+        if (res.status === 200) {
             return res.data;
         }
         return null;

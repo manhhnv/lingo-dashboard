@@ -16,7 +16,7 @@ const AppRouter = () => {
                     path="/app/dashboard/books/:grade"
                     component={ListBook}
                 />
-=                <Route
+                <Route
                     exact={true}
                     path="/app/dashboard/units/:bookId"
                     component={ListUnit}

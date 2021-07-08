@@ -19,7 +19,13 @@ const UnitComponent = ({unit}: UnitProps) => {
             item
             xs={12}
         >
-            <Link to={`/app/dashboard/levels/${match.params.bookId}/${unit._id}`}>
+            <Link to={{
+                // state: {
+                //     words: words,
+                //     sentences: sentences
+                // },
+                pathname: `/app/dashboard/levels/${match.params.bookId}/${unit._id}`
+            }}>
                 <Card>
                     <CardContent>
                         <Grid container={true} spacing={1}>

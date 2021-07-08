@@ -7,7 +7,7 @@ type ListUnitProps = {
     units: Unit[];
 }
 
-const ListUnit = ({ units }: ListUnitProps) => {
+const ListUnit = ({ units}: ListUnitProps) => {
     return (
         <Container maxWidth={false}>
             <Grid container spacing={5}>

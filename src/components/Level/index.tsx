@@ -14,7 +14,13 @@ const LevelComponent = ({ levelIndex, bookId, unitId }: LevelComponentProps) => 
     const classes = useStyles();
     return (
         <Link to={
-            `/app/dashboard/questions/${bookId}/${unitId}/${levelIndex}`
+            {
+                // pathname: `/app/dashboard/questions/${bookId}/${unitId}/${levelIndex}`
+                state: {
+                    foo: true
+                },
+                pathname: `/app/dashboard/questions/${bookId}/${unitId}/${levelIndex}`
+            }
         }>
             <Card
                 className={classes.root}
