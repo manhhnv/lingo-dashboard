@@ -1,5 +1,5 @@
 import axios from "axios";
-import { MultipleChoiceQuestion } from "../types/Question";
+import { SentenceQuestion, WordQuestion } from "../types/Question";
 import { SentenceInLesson } from "../types/Sentence";
 import { WordInLesson } from "../types/Word";
 import { BaseUrl } from "./baseUrl";
@@ -12,7 +12,7 @@ export type QuestionsLevelInput = {
 }
 
 export type QuestionLevelOutput = {
-    listQuestions: MultipleChoiceQuestion[];
+    listQuestions: (WordQuestion | SentenceQuestion)[];
     sentencesInLesson: SentenceInLesson[];
     wordsInLesson: WordInLesson[];
 }
@@ -34,8 +34,8 @@ export const getQuestionsInLevel = async (input: QuestionsLevelInput) => {
             }
         );
         if (res && res.data && res.status === 200) {
-            console.log(res.data)
-            return res.data
+            const data: QuestionLevelOutput = res.data;
+            return data
         }
         return null;
     } catch (error) {

@@ -1,7 +1,9 @@
+import { QuestionTypeCode } from "../enum"
+
 export type MultipleChoiceQuestion = {
     _id: string,
     code: string,
-    skills: any [],
+    skills: any[],
     interaction: string,
     focusWord: string,
     point: 0,
@@ -12,3 +14,34 @@ export type MultipleChoiceQuestion = {
     bookId: string,
     content: string
 }
+
+export type WordQuestion = {
+    _id: string,
+    code: QuestionTypeCode,
+    skills: undefined[],
+    interaction: string,
+    focusWord:string,
+    point: number,
+    words: string[],
+    unitId: string,
+    bookId: string,
+    content: string,
+}
+
+export type SentenceQuestion = {
+    _id: string,
+    skills: undefined[],
+    interaction: string,
+    point: number,
+    focusSentence: string,
+    sentences: string[],
+    wrongWords: string[],
+    hiddenWord: number,
+    checkSentence: string,
+    unitId: "",
+    bookId: "",
+    content: string,
+    code: QuestionTypeCode
+}
+
+export type Question = WordQuestion | SentenceQuestion;

@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Redirect, useRouteMatch } from 'react-router-dom';
@@ -7,8 +7,6 @@ import DashboardLayout from '../../../layouts/DashboardLayout';
 import { getUnitsInBook } from '../../../apis/unit';
 import { Unit } from '../../../types/Unit';
 import ListUnitComponent from "../../../components/Unit/ListUnit";
-import { wordsInPrevBooks } from '../../../apis/words';
-import { sentencesInPrevBooks } from '../../../apis/sentences';
 
 type ListUnitParams = {
     bookId: string;
@@ -18,7 +16,6 @@ const ListUnit = () => {
     const { admin } = useAdmin();
     const routeMatch = useRouteMatch<ListUnitParams>();
     const [units, setUnits] = useState() as [Array<Unit>, Dispatch<SetStateAction<Unit[]>>];
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (admin.token) {
@@ -27,7 +24,7 @@ const ListUnit = () => {
                     setUnits(data.units);
                 })
         }
-    }, [routeMatch.params.bookId, admin.token, routeMatch.params.bookId])
+    }, [routeMatch.params.bookId, admin.token])
 
 
     return (

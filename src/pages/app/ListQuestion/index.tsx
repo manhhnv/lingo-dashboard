@@ -1,22 +1,13 @@
 import {
     Box,
-    Button,
-    Checkbox,
-    CheckboxProps,
     CircularProgress,
     Container,
-    FormControlLabel,
     Grid,
     Paper,
-    Radio,
     RadioGroup,
-    RadioProps,
-    TextField,
     Typography,
-    withStyles,
 } from "@material-ui/core";
-import { green } from "@material-ui/core/colors";
-import React, { createRef, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect, useRouteMatch } from "react-router-dom";
 import { useAdmin } from "../../../AdminContext";
 import {
@@ -24,30 +15,26 @@ import {
     QuestionLevelOutput,
 } from "../../../apis/questions";
 import DashboardLayout from "../../../layouts/DashboardLayout";
-import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
+import AnswerItem from "../../../components/Question/Answer";
+import { reduceQuestions } from "./reduceQuestions";
+import { WordInLesson } from "../../../types/Word";
+import { SentenceInLesson } from "../../../types/Sentence";
+import { WordQuestion, SentenceQuestion } from "../../../types/Question";
 
-const GreenCheckbox = withStyles({
-    root: {
-      color: green[400],
-      '&$checked': {
-        color: green[600],
-      },
-    },
-    checked: {},
-  })((props: CheckboxProps) => <Checkbox color="default" {...props} />);
-  
+
 
 const ListQuestions = () => {
     const { admin } = useAdmin();
-    const [data, setData] = useState<QuestionLevelOutput>();
+    const [wordQuestions, setWordQuestions] = useState<WordQuestion[]>();
+    const [sentenceQuestions, setSentenceQuestions] = useState<SentenceQuestion[]>();
+    const [wordsInLesson, setWordsInLesson] = useState<WordInLesson[]>();
+    const [sentencesInLesson, setSentencesInLesson] = useState<SentenceInLesson[]>();
     const [isPending, setIsPending] = useState(true);
     const routeMatch = useRouteMatch<{
         bookId: string;
         unitId: string;
         levelIndex: string;
     }>();
-    const contentRef = useRef<HTMLInputElement>();
 
     useEffect(() => {
         if (admin?.token) {
@@ -58,16 +45,19 @@ const ListQuestions = () => {
                 levelIndex: Number(routeMatch.params.levelIndex),
             })
                 .then((data) => {
-                    setData(data);
+                    if (data) {
+                        setWordsInLesson(data.wordsInLesson);
+                        setSentencesInLesson(data.sentencesInLesson);
+                        const { wordQuestions, sentenceQuestions } = reduceQuestions(data.listQuestions);
+                        setWordQuestions(wordQuestions);
+                        setSentenceQuestions(sentenceQuestions);
+                    }
                 })
                 .finally(() => {
                     setIsPending(false);
                 });
         }
     }, []);
-    const textOnChange = () => {
-        console.log(`${contentRef.current?.value}\n`);
-    };
     return (
         <React.Fragment>
             {!admin?.token && <Redirect to="/login" />}
@@ -86,7 +76,7 @@ const ListQuestions = () => {
                                             >
                                                 {`Chọn hình ảnh và nghĩa tương ứng.`.toUpperCase()}
                                             </Typography>
-                                            <Box minHeight={"100%"}>
+                                            <Box minHeight={"100%"} minWidth={"100%"}>
                                                 <Grid>
                                                     <img
                                                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaKdsj5H-KOUYqgfVUY9vQHTh0E-nCRU0nuQ&usqp=CAU"
@@ -97,65 +87,19 @@ const ListQuestions = () => {
                                                         }}
                                                     />
                                                 </Grid>
-                                                <Grid container={true} spacing={10} style={{paddingTop: 15, paddingBottom: 15}}>
+                                                <Grid style={{ paddingTop: 15, paddingBottom: 15 }}>
                                                     <Grid item>
                                                         <RadioGroup>
-                                                            <Grid container={true} spacing={3} style={{paddingBottom: 10}}>
-                                                                <Grid item>
-                                                                    <FormControlLabel
-                                                                        value="ajslihnkdaiss"
-                                                                        control={<GreenCheckbox checked={true} />}
-                                                                        label="Quả bóng"
-                                                                    />
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <Button variant="outlined" color="secondary">
-                                                                        Xóa
-                                                                    </Button>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid container={true} spacing={3} style={{paddingBottom: 10}}>
-                                                                <Grid item>
-                                                                    <FormControlLabel
-                                                                        value="ajslihnkdaiss"
-                                                                        control={<GreenCheckbox checked={true} />}
-                                                                        label="Quả bóng"
-                                                                    />
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <Button variant="outlined" color="secondary">
-                                                                        Xóa
-                                                                    </Button>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid container={true} spacing={3} style={{paddingBottom: 10}}>
-                                                                <Grid item>
-                                                                    <FormControlLabel
-                                                                        value="ajslihnkdaiss"
-                                                                        control={<GreenCheckbox checked={true} disabled/>}
-                                                                        label="Quả bóng"
-                                                                    />
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <Button disabled variant="contained" color="secondary">
-                                                                        Xóa
-                                                                    </Button>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid container={true} spacing={3} style={{paddingBottom: 10}}>
-                                                                <Grid item>
-                                                                    <FormControlLabel
-                                                                        value="ajslihnkdaiss"
-                                                                        control={<GreenCheckbox checked={true} />}
-                                                                        label="Quả bóng"
-                                                                    />
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <Button variant="outlined" color="secondary">
-                                                                        Xóa
-                                                                    </Button>
-                                                                </Grid>
-                                                            </Grid>
+                                                            <AnswerItem
+                                                                content="Quả bóng"
+                                                                _id="abc"
+                                                                isCorrect={true}
+                                                            />
+                                                            <AnswerItem
+                                                                content="Bóng đá"
+                                                                _id="abcs"
+                                                                isCorrect={false}
+                                                            />
                                                         </RadioGroup>
                                                     </Grid>
                                                 </Grid>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Container, Grid } from '@material-ui/core';
 import { useAdmin } from "../../../AdminContext";
 import { Redirect, useRouteMatch } from "react-router-dom";
@@ -8,7 +8,6 @@ import LevelComponent from "../../../components/Level";
 
 
 const PageListLevel = () => {
-    const [isPending, setIsPending] = useState(true);
     const routeMatch = useRouteMatch<{ bookId: string, unitId: string }>()
     const { admin } = useAdmin();
     const levels = [0, 1, 2, 3, 4].map(item => {
@@ -33,10 +32,7 @@ const PageListLevel = () => {
 
     return (
         <React.Fragment>
-            {!admin?.token && (
-                <Redirect to='/login' />
-            )}
-            {isPending ? (
+            {admin?.token ? (
                 <DashboardLayout>
                     <React.Fragment>
                         <Helmet>
@@ -54,7 +50,9 @@ const PageListLevel = () => {
                         </Box>
                     </React.Fragment>
                 </DashboardLayout>
-            ) : null}
+            ) : (
+                <Redirect to='/login' />
+            )}
         </React.Fragment>
     )
 }
