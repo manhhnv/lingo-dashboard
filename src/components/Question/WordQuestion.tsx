@@ -1,7 +1,9 @@
-import { Grid, Paper, Typography, Box, RadioGroup, TextField } from "@material-ui/core";
+import { Grid, Paper, Typography, Box, RadioGroup } from "@material-ui/core";
 import { MappedWordQuestion } from "../../types/Question";
 import { makeStyles } from "@material-ui/core/styles";
 import Answer from "./Answer";
+import BottomSearch from "../../components/BottomSearch";
+import { useState } from "react";
 
 const useStyles = makeStyles({
     root: {
@@ -28,6 +30,7 @@ const useStyles = makeStyles({
 
 const WordQuestion = (props: MappedWordQuestion) => {
     const classes = useStyles();
+    const [choices, setChoices] = useState(props.choices);
 
     return (
         <Grid item>
@@ -54,7 +57,7 @@ const WordQuestion = (props: MappedWordQuestion) => {
                         <Grid item>
                             <RadioGroup>
                                 {
-                                    props.choices.map((choice, index) => {
+                                    choices.map((choice, index) => {
                                         return (
                                             <Answer
                                                 {...choice}
@@ -64,9 +67,7 @@ const WordQuestion = (props: MappedWordQuestion) => {
                                     })
                                 }
                             </RadioGroup>
-                            <TextField label="Search">
-
-                            </TextField>
+                            <BottomSearch questionId={props.questionId} setChoices={setChoices} choices={choices}/>
                         </Grid>
                     </Grid>
                 </Box>

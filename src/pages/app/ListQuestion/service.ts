@@ -8,8 +8,22 @@ export const mapWordQuestion = (questions: WordQuestion[], words: WordInLesson[]
     const result = questions.map((question): MappedWordQuestion => {
         const word = words.find(word => word._id === question.focusWord);
         const choices: WordInQuestion[] = [];
+        const hash = md5(word!.content.replace("'", "_"));
+        choices.push({
+            meaning: word!.meaning,
+            image: `${BaseImageUrl}/${word!.imageRoot}/${word?.content}.jpg`,
+            hash: hash,
+            audio: `${BaseAudioUrl}/${hash}.mp3`,
+            isCorrect: true,
+            content: word!.content,
+            word: {
+                _id: word!._id,
+                active: true
+            },
+            questionId: question._id
+        })
         question.words.map(choice => {
-            const word = words.find(item => item._id === choice);
+            const word = words.find(item => item._id === choice._id);
             if (word) {
                 const hash = md5(word!.content.replace("'", "_"))
                 choices.push({
@@ -19,23 +33,15 @@ export const mapWordQuestion = (questions: WordQuestion[], words: WordInLesson[]
                     audio: `${BaseAudioUrl}/${hash}.mp3`,
                     isCorrect: false,
                     content: word!.content,
-                    wordId: word._id,
+                    word: {
+                        _id: word._id,
+                        active: choice.active
+                    },
                     questionId: question._id
                 });
             }
             return null;
         });
-        const hash = md5(word!.content.replace("'", "_"));
-        choices.push({
-            meaning: word!.meaning,
-            image: `${BaseImageUrl}/${word!.imageRoot}/${word?.content}.jpg`,
-            hash: hash,
-            audio: `${BaseAudioUrl}/${hash}.mp3`,
-            isCorrect: true,
-            content: word!.content,
-            wordId: word!._id,
-            questionId: question._id
-        })
         return {
             meaning: word!.meaning,
             image: `${BaseImageUrl}/${word!.imageRoot}/${word?.content}.jpg`,

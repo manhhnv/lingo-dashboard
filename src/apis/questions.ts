@@ -51,7 +51,15 @@ export type ChangeQuestionChoice = {
     choiceId: string;
 }
 
-export const removeChoice = async (token: string, input: ChangeQuestionChoice) => {
+export type AddQuestionChoice = {
+    bookId: string;
+    unitId: string;
+    levelIndex: number;
+    questionId: string;
+    content: string;
+}
+
+export const toggleChoice = async (token: string, input: ChangeQuestionChoice) => {
     try {
         const {
             bookId,
@@ -61,7 +69,7 @@ export const removeChoice = async (token: string, input: ChangeQuestionChoice) =
             choiceId
         } = input;
         const res = await axios.put(
-            `${BaseUrl}/api/admin/question/${bookId}/${unitId}/${levelIndex}/removeChoice`,
+            `${BaseUrl}/api/admin/question/${bookId}/${unitId}/${levelIndex}/toggleChoice`,
             {
                 questionId: questionId,
                 choiceId: choiceId
@@ -75,5 +83,42 @@ export const removeChoice = async (token: string, input: ChangeQuestionChoice) =
         return res.data;
     } catch (error) {
         throw error;
+    }
+}
+
+export const addChoice = async (token: string, input: AddQuestionChoice) => {
+    try {
+        const {
+            bookId,
+            unitId,
+            levelIndex,
+            questionId,
+            content
+        } = input;
+        const res = await axios.put(
+            `${BaseUrl}/api/admin/question/${bookId}/${unitId}/${levelIndex}/addChoice`,
+            {
+                questionId: questionId,
+                content: content
+            },
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        if (res.status === 200 && res.data) {
+            const word: WordInLesson = res.data;
+            return {
+                word: word,
+                success: true
+            }
+        }
+        return {
+            word: null,
+            success: true
+        }
+    } catch (error) {
+        throw new Error('error')
     }
 }

@@ -19,6 +19,9 @@ export type WordInQuestion = {
     audio: string,
     isCorrect: boolean,
     content: string,
-    wordId: string,
+    word: {
+        _id: string,
+        active: boolean
+    },
     questionId: string
 }

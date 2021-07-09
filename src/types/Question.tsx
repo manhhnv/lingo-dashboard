@@ -23,7 +23,7 @@ export type WordQuestion = {
     interaction: string,
     focusWord:string,
     point: number,
-    words: string[],
+    words: {_id: string, active: boolean}[],
     unitId: string,
     bookId: string,
     content: string,
@@ -36,7 +36,7 @@ export type SentenceQuestion = {
     point: number,
     focusSentence: string,
     sentences: string[],
-    wrongWords: string[],
+    wrongWords: {_id: string, active: boolean}[],
     hiddenWord: number,
     checkSentence: string,
     unitId: "",
@@ -47,7 +47,7 @@ export type SentenceQuestion = {
 
 export type Question = WordQuestion | SentenceQuestion;
 
-export type MappedWordQuestion = Omit<WordInQuestion, "isCorrect" | "wordId"> & {
+export type MappedWordQuestion = Omit<WordInQuestion, "isCorrect" | "word"> & {
     questionId: string;
     choices: WordInQuestion[];
     content: string;
