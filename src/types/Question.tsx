@@ -1,20 +1,6 @@
 import { QuestionTypeCode } from "../enum";
 import { WordInQuestion } from "../types/Word";
-
-export type MultipleChoiceQuestion = {
-    _id: string,
-    code: string,
-    skills: any[],
-    interaction: string,
-    focusWord: string,
-    point: 0,
-    words: [
-        string
-    ],
-    unitId: string,
-    bookId: string,
-    content: string
-}
+import { SentenceInQuestion } from "./Sentence";
 
 export type WordQuestion = {
     _id: string,
@@ -35,7 +21,7 @@ export type SentenceQuestion = {
     interaction: string,
     point: number,
     focusSentence: string,
-    sentences: string[],
+    sentences: {_id: string, active: boolean}[],
     wrongWords: {_id: string, active: boolean}[],
     hiddenWord: number,
     checkSentence: string,
@@ -53,4 +39,20 @@ export type MappedWordQuestion = Omit<WordInQuestion, "isCorrect" | "word"> & {
     content: string;
     code: QuestionTypeCode;
     focusId: string;
+}
+
+export type MappedSentenceQuestion = {
+    questionId: string,
+    code: QuestionTypeCode,
+    content: string,
+    focusSentence: string,
+    hiddenWord: number,
+    interaction: string,
+    point: number
+    sentences: SentenceInQuestion[]
+    skills: any
+    unitId: string
+    wrongWords: WordInQuestion[];
+    audio?: string;
+    contentSplit?: {_id: string, text: string, wordId: string}[]
 }

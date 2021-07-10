@@ -12,16 +12,16 @@ export type WordSplit = {
     wordId: string
 }
 
-export type WordInQuestion = {
-    meaning: string,
-    image: string,
-    hash: string,
-    audio: string,
-    isCorrect: boolean,
-    content: string,
-    word: {
-        _id: string,
-        active: boolean
-    },
-    questionId: string
+export class WordInQuestion {
+    meaning?: string;
+    image?: string;
+    hash?: string;
+    audio?: string;
+    isCorrect?: boolean;
+    content?: string;
+    word?: {
+        _id: string;
+        active: boolean;
+    }
+    questionId?: string;
 }

@@ -6,6 +6,8 @@ import { ChangeQuestionChoice, toggleChoice } from "../../apis/questions";
 import { useAdmin } from "../../AdminContext";
 import { useRouteMatch } from "react-router-dom";
 import { useState } from "react";
+import {SentenceQuestion} from "../../types/Question";
+import {SentenceInQuestion} from "../../types/Sentence";
 
 
 const useStyles = makeStyles({
@@ -24,18 +26,16 @@ const useStyles = makeStyles({
     }
 })
 
-const Answer = ({
-    isCorrect,
-    content,
-    word,
-    image,
-    audio,
-    questionId
-}: WordInQuestion) => {
-    console.log(content)
+const SentenceAnswer = ({
+                    enText,
+                    audio,
+                    sentence,
+                    isCorrect,
+                    questionId
+                }: SentenceInQuestion) => {
     const classes = useStyles();
     const audioInstance = new Audio(audio);
-    const [active, setActive] = useState(word?.active);
+    const [active, setActive] = useState(sentence.active);
     const { admin } = useAdmin()
     const playAudio = () => {
         audioInstance.play();
@@ -68,18 +68,12 @@ const Answer = ({
                 item
             >
                 <FormControlLabel
-                    value={word?._id}
+                    value={sentence._id}
                     label={<Grid container={true} spacing={3}>
-                        <Grid item>
-                            <img
-                                src={image}
-                                alt="ImageUnit"
-                                className={classes.answerImage}
-                            />
-                        </Grid>
+
                         <Grid item>
                             <Typography className={classes.content}>
-                                {content}
+                                {enText}
                             </Typography>
                         </Grid>
                         <Grid item>
@@ -90,18 +84,18 @@ const Answer = ({
                         <Grid item>
                             <Switch
                                 checked={active}
-                                color="primary" 
-                                onClick={() => {
-                                    if (!isCorrect) {
-                                        toggleChoiceHandle({    
-                                            bookId: routeMatch.params.bookId,
-                                            unitId: routeMatch.params.unitId,
-                                            levelIndex: Number(routeMatch.params.levelIndex),
-                                            questionId: questionId || '',
-                                            choiceId: word!._id
-                                        })
-                                    }
-                                }}
+                                color="primary"
+                                // onClick={() => {
+                                //     if (!isCorrect) {
+                                //         toggleChoiceHandle({
+                                //             bookId: routeMatch.params.bookId,
+                                //             unitId: routeMatch.params.unitId,
+                                //             levelIndex: Number(routeMatch.params.levelIndex),
+                                //             questionId: questionId || '',
+                                //             choiceId: word!._id
+                                //         })
+                                //     }
+                                // }}
                             />
                         </Grid>
                     </Grid>}
@@ -112,4 +106,4 @@ const Answer = ({
     )
 }
 
-export default Answer;
+export default SentenceAnswer;
