@@ -3,6 +3,7 @@ import { SentenceQuestion, WordQuestion } from "../types/Question";
 import { SentenceInLesson } from "../types/Sentence";
 import { WordInLesson } from "../types/Word";
 import { BaseUrl } from "./baseUrl";
+import {QuestionTypeCode} from "../enum";
 
 export type QuestionsLevelInput = {
     token: string,
@@ -57,6 +58,8 @@ export type AddQuestionChoice = {
     levelIndex: number;
     questionId: string;
     content: string;
+    focusId: string;
+    code: QuestionTypeCode;
 }
 
 export const getSentenceQuestions = async (input: QuestionsLevelInput) => {
@@ -120,13 +123,16 @@ export const addChoice = async (token: string, input: AddQuestionChoice) => {
             unitId,
             levelIndex,
             questionId,
-            content
+            content,
+            code, focusId
         } = input;
         const res = await axios.put(
             `${BaseUrl}/api/admin/question/${bookId}/${unitId}/${levelIndex}/addChoice`,
             {
                 questionId: questionId,
-                content: content
+                content: content,
+                code: code,
+                focusId: focusId
             },
             {
                 headers: {
@@ -135,14 +141,15 @@ export const addChoice = async (token: string, input: AddQuestionChoice) => {
             }
         )
         if (res.status === 200 && res.data) {
-            const word: WordInLesson = res.data;
             return {
-                word: word,
+                word: res.data.word,
+                sentence: res.data.sentence,
                 success: true
             }
         }
         return {
             word: null,
+            sentence: null,
             success: true
         }
     } catch (error) {

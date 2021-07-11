@@ -62,6 +62,7 @@ export const mapSentenceQuestion = (
     questions: SentenceQuestion[],
     sentencesInLesson: SentenceInLesson[],
     wordsInLesson: WordInLesson[]) => {
+    // eslint-disable-next-line array-callback-return
     return questions.map((question): MappedSentenceQuestion | undefined => {
         const focusSentence = sentencesInLesson.find(s => s._id === question.focusSentence);
         if (question.code === QuestionTypeCode.S10) {
@@ -85,6 +86,7 @@ export const mapSentenceQuestion = (
                 isCorrect: true,
             })
             const sentences = question.sentences;
+            // eslint-disable-next-line array-callback-return
             sentences.map(item => {
                 const sentence = sentencesInLesson.find(s => s._id === item._id);
                 if (sentence) {
@@ -143,6 +145,7 @@ export const mapSentenceQuestion = (
                 },
                 questionId: question._id,
             })
+            // eslint-disable-next-line array-callback-return
             question.wrongWords.map((item) => {
                 const word = wordsInLesson.find(w => w._id === item._id);
                 if (word) {

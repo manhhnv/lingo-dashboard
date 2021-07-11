@@ -1,12 +1,10 @@
 import { FormControlLabel, Grid, Radio, Typography, IconButton, Switch } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import PlayIcon from "@material-ui/icons/VolumeUp";
-import { WordInQuestion } from "../../types/Word";
 import { ChangeQuestionChoice, toggleChoice } from "../../apis/questions";
 import { useAdmin } from "../../AdminContext";
 import { useRouteMatch } from "react-router-dom";
 import { useState } from "react";
-import {SentenceQuestion} from "../../types/Question";
 import {SentenceInQuestion} from "../../types/Sentence";
 
 
@@ -85,17 +83,17 @@ const SentenceAnswer = ({
                             <Switch
                                 checked={active}
                                 color="primary"
-                                // onClick={() => {
-                                //     if (!isCorrect) {
-                                //         toggleChoiceHandle({
-                                //             bookId: routeMatch.params.bookId,
-                                //             unitId: routeMatch.params.unitId,
-                                //             levelIndex: Number(routeMatch.params.levelIndex),
-                                //             questionId: questionId || '',
-                                //             choiceId: word!._id
-                                //         })
-                                //     }
-                                // }}
+                                onClick={() => {
+                                    if (!isCorrect) {
+                                        toggleChoiceHandle({
+                                            bookId: routeMatch.params.bookId,
+                                            unitId: routeMatch.params.unitId,
+                                            levelIndex: Number(routeMatch.params.levelIndex),
+                                            questionId: questionId || '',
+                                            choiceId: sentence!._id
+                                        })
+                                    }
+                                }}
                             />
                         </Grid>
                     </Grid>}

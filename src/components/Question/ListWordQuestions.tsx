@@ -24,6 +24,7 @@ const ListWordQuestions = ({questions, sentenceQuestions}: ListWordQuestionsProp
                         />
                     )
                 }
+                return null;
             })}
         </>
     )

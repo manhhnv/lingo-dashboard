@@ -13,6 +13,7 @@ import { useAdmin } from '../../AdminContext';
 import { WordInQuestion } from '../../types/Word';
 import md5 from "md5";
 import { BaseAudioUrl, BaseImageUrl } from '../../constant';
+import {QuestionTypeCode} from "../../enum";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -39,11 +40,13 @@ const useStyles = makeStyles((theme: Theme) =>
 type BottomSearchProps = {
     questionId: string;
     setChoices: React.Dispatch<React.SetStateAction<WordInQuestion[]>>;
-    choices: WordInQuestion[]
+    choices: WordInQuestion[];
+    focusId: string;
+    code: QuestionTypeCode
 
 }
 
-export default function BottomSearch({ questionId, setChoices, choices }: BottomSearchProps) {
+export default function BottomSearch({ questionId, setChoices, choices, focusId, code }: BottomSearchProps) {
     const classes = useStyles();
     const [showAlert, setShowAlert] = useState(false);
     const [inputContent, setInputContent] = useState('');
@@ -60,6 +63,7 @@ export default function BottomSearch({ questionId, setChoices, choices }: Bottom
         if (admin.token && content) {
             addChoice(admin.token, {...input, content: content})
                 .then(data => {
+                    console.log(data)
                     if (data.success && data.word) {
                         const word = data.word;
                         const hash = md5(word.content.replace("'", "_"));
@@ -77,23 +81,11 @@ export default function BottomSearch({ questionId, setChoices, choices }: Bottom
                             },
                             questionId: questionId
                         }
-                        // clonedChoices.push({
-                        //     meaning: word.meaning,
-                        //     image: `${BaseImageUrl}/${word.imageRoot}/${word?.content}.jpg`,
-                        //     hash: hash,
-                        //     audio: `${BaseAudioUrl}/${hash}.mp3`,
-                        //     isCorrect: false,
-                        //     content: word!.content,
-                        //     word: {
-                        //         _id: word._id,
-                        //         active: true
-                        //     },
-                        //     questionId: questionId
-                        // });
                         setChoices([...clonedChoices, newChoice]);
                         setShowAlert(false);
                     }
                     else {
+                        console.log(data)
                         setShowAlert(true);
                     }
                 })
@@ -126,7 +118,9 @@ export default function BottomSearch({ questionId, setChoices, choices }: Bottom
                         unitId: routeMatch.params.unitId,
                         levelIndex: Number(routeMatch.params.levelIndex),
                         questionId: questionId,
-                        content: inputContent 
+                        content: inputContent,
+                        code: code,
+                        focusId: focusId,
                     })}
                 >
                     <AddIcon />

@@ -5,9 +5,9 @@ import {useState} from "react";
 import {QuestionTypeCode} from "../../enum";
 import BottomSearch from "../BottomSearch";
 import Answer from "./Answer";
-import { WordInQuestion } from "../../types/Word";
 import SentenceAnswer from "./SentenceAnswer";
 import {SentenceInQuestion} from "../../types/Sentence";
+import NewSentenceForm from "../Sentence/addSentence";
 
 const useStyles = makeStyles({
     root: {
@@ -85,7 +85,24 @@ const SentenceQuestions = (props: MappedSentenceQuestion) => {
                                     })
                                 }
                             </RadioGroup>
-                            {/*<BottomSearch questionId={props.questionId} setChoices={setChoices} choices={choices}/>*/}
+                            {props.code === QuestionTypeCode.S10 && (
+                                <NewSentenceForm
+                                    questionId={props.questionId}
+                                    focusId={props.focusSentence}
+                                    code={props.code}
+                                    choices={choices}
+                                    setChoices={setChoices}
+                                />
+                            )}
+                            {props.code === QuestionTypeCode.S7 && (
+                                <BottomSearch
+                                    questionId={props.questionId}
+                                    setChoices={setChoices}
+                                    choices={choices}
+                                    focusId={props.focusSentence}
+                                    code={props.code}
+                                />
+                            )}
                         </Grid>
                     </Grid>
                 </Box>

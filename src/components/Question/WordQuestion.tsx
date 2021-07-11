@@ -67,7 +67,13 @@ const WordQuestion = (props: MappedWordQuestion) => {
                                     })
                                 }
                             </RadioGroup>
-                            <BottomSearch questionId={props.questionId} setChoices={setChoices} choices={choices}/>
+                            <BottomSearch
+                                questionId={props.questionId}
+                                setChoices={setChoices}
+                                choices={choices}
+                                focusId={props.focusId}
+                                code={props.code}
+                            />
                         </Grid>
                     </Grid>
                 </Box>
