@@ -63,7 +63,6 @@ export default function BottomSearch({ questionId, setChoices, choices, focusId,
         if (admin.token && content) {
             addChoice(admin.token, {...input, content: content})
                 .then(data => {
-                    console.log(data)
                     if (data.success && data.word) {
                         const word = data.word;
                         const hash = md5(word.content.replace("'", "_"));
@@ -85,7 +84,6 @@ export default function BottomSearch({ questionId, setChoices, choices, focusId,
                         setShowAlert(false);
                     }
                     else {
-                        console.log(data)
                         setShowAlert(true);
                     }
                 })
@@ -95,7 +93,6 @@ export default function BottomSearch({ questionId, setChoices, choices, focusId,
         }
     }
     const onChangeText = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        console.log(event.target.value)
         setInputContent(event.target.value)
     }
 

@@ -70,7 +70,6 @@ export default function NewSentenceForm({ questionId, focusId, code, choices, se
             }
             addNewSentence(input)
                 .then(data => {
-                    console.log(data);
                     const mapSentenceChoice: SentenceInQuestion = {
                         audio: "",
                         contextSection: data.contextSection,

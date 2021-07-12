@@ -32,7 +32,6 @@ const Answer = ({
     audio,
     questionId
 }: WordInQuestion) => {
-    console.log(content)
     const classes = useStyles();
     const audioInstance = new Audio(audio);
     const [active, setActive] = useState(word?.active);

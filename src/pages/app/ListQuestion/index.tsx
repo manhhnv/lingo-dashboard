@@ -2,7 +2,7 @@ import { Box, CircularProgress, Container, Grid } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Redirect, useRouteMatch } from "react-router-dom";
 import { useAdmin } from "../../../AdminContext";
-import {getQuestionsInLevel, getSentenceQuestions} from "../../../apis/questions";
+import {getQuestionsInLevel} from "../../../apis/questions";
 import DashboardLayout from "../../../layouts/DashboardLayout";
 import { reduceQuestions } from "./reduceQuestions";
 import {MappedSentenceQuestion, MappedWordQuestion} from "../../../types/Question";
@@ -33,24 +33,13 @@ const ListQuestions = () => {
             const { wordQuestions, sentenceQuestions } = reduceQuestions(data.listQuestions);
             const result = mapWordQuestion(wordQuestions, data.wordsInLesson);
             setWordQuestions(result);
-            console.log("sentenceQuestions", data)
             const sentenceResult = mapSentenceQuestion(sentenceQuestions, data.sentencesInLesson, data.wordsInLesson);
             setSentenceQuestions(sentenceResult);
-            console.log(sentenceResult)
           }
         })
         .finally(() => {
           setIsPending(false);
         });
-      getSentenceQuestions({
-        token: admin.token,
-        bookId: routeMatch.params.bookId,
-        unitId: routeMatch.params.unitId,
-        levelIndex: Number(routeMatch.params.levelIndex),
-      })
-          .then(data => {
-            console.log(data);
-          })
     }
   }, [
     admin?.token,

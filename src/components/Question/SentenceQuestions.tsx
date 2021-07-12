@@ -34,7 +34,6 @@ const useStyles = makeStyles({
 
 const SentenceQuestions = (props: MappedSentenceQuestion) => {
     const classes = useStyles();
-    console.log("props", props)
     const [choices, setChoices] = useState(props.code === QuestionTypeCode.S7 ? props.wrongWords : props.sentences);
     return (
         <Grid item>
@@ -53,7 +52,6 @@ const SentenceQuestions = (props: MappedSentenceQuestion) => {
                             {props.contentSplit?.map((item, index) => {
 
                                 if (index !== props.hiddenWord) {
-                                    console.log(item.text)
                                     return item.text;
                                 }
                                 return '____';

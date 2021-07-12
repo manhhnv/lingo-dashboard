@@ -62,33 +62,6 @@ export type AddQuestionChoice = {
     code: QuestionTypeCode;
 }
 
-export const getSentenceQuestions = async (input: QuestionsLevelInput) => {
-    try {
-        const {
-            bookId,
-            unitId,
-            levelIndex,
-            token
-        } = input;
-        const res = await axios.get(
-            `${BaseUrl}/api/admin/question/${bookId}/${unitId}/${levelIndex}/sentenceQuestions`,
-            {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            }
-        )
-        if (res.status === 200 && res.data) {
-            return res.data
-        }
-        return null;
-    }
-    catch (e) {
-        throw e;
-    }
-}
-
-
 export const toggleChoice = async (token: string, input: ChangeQuestionChoice) => {
     try {
         const {
