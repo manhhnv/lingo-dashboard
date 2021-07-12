@@ -1,1 +1,1 @@
-export const BaseUrl = 'http://localhost:8080';
+export const BaseUrl = 'https://lingo-api.saokhuee.com';
