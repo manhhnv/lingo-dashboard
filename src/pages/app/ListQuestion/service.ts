@@ -128,37 +128,37 @@ export const mapSentenceQuestion = (
         }
         else if (question.code === QuestionTypeCode.S7) {
             const choices: WordInQuestion[] = [];
-            const lastIndex = question.focusSentence.lastIndexOf('S');
-            const wordBaseId = question.focusSentence.slice(0, lastIndex);
-            const hiddenWord = wordsInLesson.find(item => item._id === wordBaseId);
-            const hash = md5(hiddenWord!.content.replace("'", "_"));
-            choices.push({
-                meaning: hiddenWord!.content,
-                image: `${BaseImageUrl}/${hiddenWord!.imageRoot}/${hiddenWord?.content}.jpg`,
-                hash: hash,
-                audio: `${BaseAudioUrl}/${hash}.mp3`,
-                isCorrect: true,
-                content: hiddenWord!.content,
-                word: {
-                    _id: hiddenWord!._id,
-                    active: true
-                },
-                questionId: question._id,
-            })
+            // question.hiddenWord
+            const sentence = sentencesInLesson.find(item => item._id === question.focusSentence);
+            if (sentence) {
+                const hash = md5(sentence.en[question.hiddenWord].text.replace("'", "_"));
+                choices.push({
+                    meaning: sentence.en[question.hiddenWord].text,
+                    image: ``,
+                    hash: hash,
+                    audio: `${BaseAudioUrl}/${hash}.mp3`,
+                    isCorrect: true,
+                    content: sentence.en[question.hiddenWord].text,
+                    word: {
+                        _id: sentence.en[question.hiddenWord].text,
+                        active: true
+                    },
+                    questionId: question._id,
+                })
+            }
             // eslint-disable-next-line array-callback-return
             question.wrongWords.map((item) => {
-                const word = wordsInLesson.find(w => w._id === item._id);
-                if (word) {
-                    const hash = md5(word!.content.replace("'", "_"))
+                if (item) {
+                    const hash = md5(item!._id.replace("'", "_"))
                     choices.push({
-                        meaning: word!.meaning,
-                        image: `${BaseImageUrl}/${word.imageRoot}/${word?.content}.jpg`,
+                        meaning: item!._id,
+                        image: ``,
                         hash: hash,
                         audio: `${BaseAudioUrl}/${hash}.mp3`,
                         isCorrect: false,
-                        content: word!.content,
+                        content: item!._id,
                         word: {
-                            _id: word._id,
+                            _id: item!._id,
                             active: item.active
                         },
                         questionId: question._id
