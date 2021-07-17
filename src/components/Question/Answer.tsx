@@ -70,11 +70,13 @@ const Answer = ({
                     value={word?._id}
                     label={<Grid container={true} spacing={3}>
                         <Grid item>
-                            <img
-                                src={image}
-                                alt="ImageUnit"
-                                className={classes.answerImage}
-                            />
+                            {image ? (
+                                    <img
+                                        src={image}
+                                        alt="ImageUnit"
+                                        className={classes.answerImage}
+                                    />
+                                ): null }
                         </Grid>
                         <Grid item>
                             <Typography className={classes.content}>

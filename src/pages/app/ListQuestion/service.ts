@@ -147,24 +147,41 @@ export const mapSentenceQuestion = (
             })
             // eslint-disable-next-line array-callback-return
             question.wrongWords.map((item) => {
-                const word = wordsInLesson.find(w => w._id === item._id);
-                if (word) {
-                    const hash = md5(word!.content.replace("'", "_"))
-                    choices.push({
-                        meaning: word!.meaning,
-                        image: `${BaseImageUrl}/${word.imageRoot}/${word?.content}.jpg`,
-                        hash: hash,
-                        audio: `${BaseAudioUrl}/${hash}.mp3`,
-                        isCorrect: false,
-                        content: word!.content,
-                        word: {
-                            _id: word._id,
-                            active: item.active
-                        },
-                        questionId: question._id
-                    });
-                }
+                const hash = md5(item!._id.replace("'", "_"));
+                choices.push({
+                    meaning: '',
+                    image: '',
+                    hash: hash,
+                    audio: `${BaseAudioUrl}/${hash}.mp3`,
+                    isCorrect: false,
+                    content: item!._id,
+                    word: {
+                        _id: item!._id,
+                        active: item.active
+                    },
+                    questionId: question._id
+                });
             })
+            // eslint-disable-next-line array-callback-return
+            // question.wrongWords.map((item) => {
+            //     const word = wordsInLesson.find(w => w._id === item._id);
+            //     if (word) {
+            //         const hash = md5(word!.content.replace("'", "_"))
+            //         choices.push({
+            //             meaning: word!.meaning,
+            //             image: `${BaseImageUrl}/${word.imageRoot}/${word?.content}.jpg`,
+            //             hash: hash,
+            //             audio: `${BaseAudioUrl}/${hash}.mp3`,
+            //             isCorrect: false,
+            //             content: word!.content,
+            //             word: {
+            //                 _id: word._id,
+            //                 active: item.active
+            //             },
+            //             questionId: question._id
+            //         });
+            //     }
+            // })
             return {
                 questionId: question._id,
                 code: question.code,

@@ -1,4 +1,4 @@
-import { makeStyles, Theme, createStyles, } from '@material-ui/core/styles';
+import {createStyles, makeStyles, Theme,} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
@@ -6,13 +6,13 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from "@material-ui/icons/Add"
 import Alert from '@material-ui/lab/Alert';
-import { useState } from "react";
-import { addChoice, AddQuestionChoice } from "../../apis/questions";
-import { useRouteMatch } from 'react-router-dom';
-import { useAdmin } from '../../AdminContext';
-import { WordInQuestion } from '../../types/Word';
+import {useState} from "react";
+import {addChoice, AddQuestionChoice} from "../../apis/questions";
+import {useRouteMatch} from 'react-router-dom';
+import {useAdmin} from '../../AdminContext';
+import {WordInQuestion} from '../../types/Word';
 import md5 from "md5";
-import { BaseAudioUrl, BaseImageUrl } from '../../constant';
+import {BaseAudioUrl, BaseImageUrl} from '../../constant';
 import {QuestionTypeCode} from "../../enum";
 
 const useStyles = makeStyles((theme: Theme) =>
