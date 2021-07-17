@@ -55,7 +55,7 @@ export default function NewSentenceForm({ questionId, focusId, code, choices, se
     };
 
     const handleClose = () => {
-        if (content && meaning && admin.token) {
+        if (content && admin.token) {
             const input: AddNewSentenceInput = {
                 bookId: routeMatch.params.bookId,
                 code: code,
@@ -90,6 +90,9 @@ export default function NewSentenceForm({ questionId, focusId, code, choices, se
                     setOpen(false);
                 })
         }
+        else {
+            window.alert('Nội dung của câu không được để trống')
+        }
     };
 
     return (
@@ -101,6 +104,8 @@ export default function NewSentenceForm({ questionId, focusId, code, choices, se
                 <DialogTitle id="form-dialog-title">Tạo câu mới</DialogTitle>
                 <DialogContent>
                     <TextField
+                        error={content ? false : true}
+                        helperText={content ? '' : 'Bắt buộc'}
                         autoFocus
                         margin="dense"
                         id="name"
@@ -109,7 +114,7 @@ export default function NewSentenceForm({ questionId, focusId, code, choices, se
                             width: '80%',
                             marginBottom: 30
                         }}
-                        required
+                        required={true}
                         onChange={(event) => changeText(TextFieldName.Content, event.target.value)}
                         value={content}
                     />
@@ -121,7 +126,6 @@ export default function NewSentenceForm({ questionId, focusId, code, choices, se
                             width: '80%',
                             marginBottom: 30
                         }}
-                        required
                         onChange={(event) => changeText(TextFieldName.Meaning, event.target.value)}
                         value={meaning}
                     />
@@ -139,10 +143,10 @@ export default function NewSentenceForm({ questionId, focusId, code, choices, se
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setOpen(false)} color="primary">
-                        Cancel
+                        Hủy
                     </Button>
                     <Button onClick={handleClose} color="primary">
-                        Subscribe
+                        Lưu
                     </Button>
                 </DialogActions>
             </Dialog>
