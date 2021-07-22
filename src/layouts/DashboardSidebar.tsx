@@ -40,9 +40,9 @@ const items = [
         title: 'Account'
     },
     {
-        href: '/app/settings',
+        href: '/app/version',
         icon: SettingsIcon,
-        title: 'Settings'
+        title: 'Version'
     },
     {
         href: '/login',

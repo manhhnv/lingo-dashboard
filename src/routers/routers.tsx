@@ -6,6 +6,7 @@ import ListBook from "../pages/app/ListBook";
 import ListUnit from "../pages/app/ListUnit";
 import PageListLevel from "../pages/app/ListLevel";
 import PageListQuestion from "../pages/app/ListQuestion";
+import VersionPage from "../pages/app/version";
 
 const AppRouter = () => {
     return (
@@ -40,6 +41,11 @@ const AppRouter = () => {
                     exact={true}
                     path="/login"
                     component={Login}
+                />
+                <Route
+                    exact={true}
+                    path='/app/version'
+                    component={VersionPage}
                 />
                 <Route exact={true} path="/*">
                     <NotFound />
