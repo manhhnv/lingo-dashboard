@@ -31,6 +31,10 @@ const ListBookComponent = ({ books }: ListBookComponentProps) => {
                                                 <img
                                                     src={book.cover}
                                                     alt="BookImage"
+                                                    style={{
+                                                        maxWidth: 150,
+                                                        maxHeight: 200
+                                                    }}
                                                 />
                                             </Grid>
                                             <Grid item>
