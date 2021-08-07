@@ -30,15 +30,17 @@ const DashboardNavbar = (props: DashboardNavbarProps) => {
                         <Logo />
                     </RouterLink>
                     <Box css={{ flexGrow: 1 }} />
-                    <IconButton color="inherit">
-                        <Badge
-                            badgeContent={5}
-                            color="error"
-                            variant="dot"
-                        >
-                            <NotificationsIcon />
-                        </Badge>
-                    </IconButton>
+                    <RouterLink to="/app/notifications" style={{ color: "white" }}>
+                        <IconButton color="inherit">
+                            <Badge
+                                badgeContent={5}
+                                color="error"
+                                variant="dot"
+                            >
+                                <NotificationsIcon />
+                            </Badge>
+                        </IconButton>
+                    </RouterLink>
                     <IconButton color="inherit" onClick={() => {
                         if (props?.logout) {
                             props.logout(null)
@@ -56,9 +58,9 @@ const DashboardNavbar = (props: DashboardNavbarProps) => {
                     variant="contained"
                     onClick={goBackFunc}
                     disabled={location.pathname === '/app/dashboard'}
-                >   <Tooltip title="Quay lai">
-                    <GoBackIcon />
-                </Tooltip>
+                >   <Tooltip title="Quay lại">
+                        <GoBackIcon />
+                    </Tooltip>
                 </Button>
             </Toolbar>
         </React.Fragment>
