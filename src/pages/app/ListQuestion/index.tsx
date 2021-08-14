@@ -2,7 +2,7 @@ import { Box, CircularProgress, Container, Grid } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Redirect, useRouteMatch } from "react-router-dom";
 import { useAdmin } from "../../../AdminContext";
-import {getQuestionsInLevel} from "../../../apis/questions";
+import { getQuestionsInLevel } from "../../../apis/questions";
 import DashboardLayout from "../../../layouts/DashboardLayout";
 import { reduceQuestions } from "./reduceQuestions";
 import {MappedSentenceQuestion, MappedWordQuestion} from "../../../types/Question";
@@ -32,6 +32,7 @@ const ListQuestions = () => {
           if (data) {
             const { wordQuestions, sentenceQuestions } = reduceQuestions(data.listQuestions);
             const result = mapWordQuestion(wordQuestions, data.wordsInLesson);
+            console.log(result)
             setWordQuestions(result);
             const sentenceResult = mapSentenceQuestion(sentenceQuestions, data.sentencesInLesson, data.wordsInLesson);
             setSentenceQuestions(sentenceResult);
@@ -57,7 +58,7 @@ const ListQuestions = () => {
           ) : (
             <Box minHeight={"100%"} py={3} justifyContent="center">
               <Container maxWidth={false} style={{ margin: "auto" }}>
-                <Grid container={true} spacing={5}>
+                <Grid container={true} spacing={3} style={{ justifyContent: "space-around"}}>
                   <ListWordQuestions questions={wordQuestions} sentenceQuestions={sentenceQuestions}/>
                 </Grid>
               </Container>
