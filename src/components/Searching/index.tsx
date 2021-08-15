@@ -19,6 +19,7 @@ export default function SearchingBox(props: SearchingBoxProps) {
   const { callback, isOnlineSearch } = props;
   const classes = useStyles();
   const [value, setValue] = useState("");
+  const [content, setContent] = useState("");
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [words, setWords] = useState<SearchWord[]>([]);
 
@@ -31,6 +32,10 @@ export default function SearchingBox(props: SearchingBoxProps) {
       });
     }
   }, [value, admin?.token, isOnlineSearch]);
+
+  const contentOnChange = (text: string) => {
+    setContent(text);
+  }
 
   useEffect(() => {
     if (timeoutRef.current !== null) {
@@ -79,10 +84,22 @@ export default function SearchingBox(props: SearchingBoxProps) {
           ) : (
             <Grid container={true}>
               <Grid item={true} xs={9}>
-                <TextField fullWidth placeholder="Thêm từ"/>
+                <TextField
+                  fullWidth
+                  placeholder="Thêm từ"
+                  value={content}
+                  onChange={(e) => contentOnChange(e.target.value)}
+                  required
+                />
               </Grid>
               <Grid item={true} xs={2}>
-                <Button variant="contained" color="primary">Add</Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => callback(content)}
+                >
+                  Add
+                </Button>
               </Grid>
             </Grid>
           )}

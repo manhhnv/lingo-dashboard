@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/slices";
 import { Redirect, useRouteMatch } from "react-router-dom";
 import Answer from "../Answer";
+import { BaseImageUrl } from "../../../constant";
 
 export function MatchingQuestion(props: MappedWordQuestion) {
   const { choices, content } = props;
@@ -22,7 +23,7 @@ export function MatchingQuestion(props: MappedWordQuestion) {
     levelIndex: string}>();
 
   const addWordToMatchingPairs = (word: SearchWord) => {
-    if (admin?.token && word._id) {
+    if (admin?.token && word?._id) {
       addChoiceToQuestion(
         admin.token,
         {
@@ -41,7 +42,7 @@ export function MatchingQuestion(props: MappedWordQuestion) {
           const cloned = pairs;
           const formatItem: WordInQuestion = {
             meaning: word.meaning,
-            image: word.imageRoot,
+            image: `${BaseImageUrl}/${word.imageRoot}/${word?.content}.jpg`,
             hash: "",
             audio: "",
             isCorrect: false,
