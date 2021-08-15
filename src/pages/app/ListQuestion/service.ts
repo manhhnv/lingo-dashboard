@@ -201,26 +201,6 @@ export const mapSentenceQuestion = (
                     questionId: question._id
                 });
             })
-            // eslint-disable-next-line array-callback-return
-            // question.wrongWords.map((item) => {
-            //     const word = wordsInLesson.find(w => w._id === item._id);
-            //     if (word) {
-            //         const hash = md5(word!.content.replace("'", "_"))
-            //         choices.push({
-            //             meaning: word!.meaning,
-            //             image: `${BaseImageUrl}/${word.imageRoot}/${word?.content}.jpg`,
-            //             hash: hash,
-            //             audio: `${BaseAudioUrl}/${hash}.mp3`,
-            //             isCorrect: false,
-            //             content: word!.content,
-            //             word: {
-            //                 _id: word._id,
-            //                 active: item.active
-            //             },
-            //             questionId: question._id
-            //         });
-            //     }
-            // })
             return {
                 questionId: question._id,
                 code: question.code,
@@ -234,7 +214,47 @@ export const mapSentenceQuestion = (
                 unitId: question.unitId,
                 wrongWords: choices,
                 audio: focusSentence?.audio,
-                contentSplit: focusSentence?.en
+                contentSplit: focusSentence?.en,
+                lowerBound: focusSentence?.lowerBound,
+                upperBound: focusSentence?.upperBound, 
+            }
+        }
+        else {
+            const choices: WordInQuestion[] = [];
+            const sentence = sentencesInLesson.find((element) => element._id === question.focusSentence);
+            if (sentence) {
+                question.wrongWords.forEach((el) => {
+                    choices.push({
+                        meaning: "",
+                        image: "",
+                        hash: "",
+                        audio: "",
+                        isCorrect: false,
+                        content: el._id,
+                        word: {
+                            _id: el._id,
+                            active: el.active,
+                        },
+                        questionId: question._id,
+                    });
+                });
+                return {
+                    questionId: question._id,
+                    code: question.code,
+                    content: question.content,
+                    focusSentence: question.focusSentence,
+                    hiddenWord: question.hiddenWord,
+                    interaction: question.interaction,
+                    point: question.point,
+                    sentences: [],
+                    skills: question.skills,
+                    unitId: question.unitId,
+                    wrongWords: choices,
+                    audio: focusSentence?.audio,
+                    contentSplit: focusSentence?.en,
+                    lowerBound: focusSentence?.lowerBound,
+                    upperBound: focusSentence?.upperBound, 
+                }
             }
         }
     })

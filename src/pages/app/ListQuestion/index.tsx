@@ -5,14 +5,19 @@ import { useAdmin } from "../../../AdminContext";
 import { getQuestionsInLevel } from "../../../apis/questions";
 import DashboardLayout from "../../../layouts/DashboardLayout";
 import { reduceQuestions } from "./reduceQuestions";
-import {MappedSentenceQuestion, MappedWordQuestion} from "../../../types/Question";
-import {mapSentenceQuestion, mapWordQuestion} from "./service";
+import {
+  MappedSentenceQuestion,
+  MappedWordQuestion,
+} from "../../../types/Question";
+import { mapSentenceQuestion, mapWordQuestion } from "./service";
 import ListWordQuestions from "../../../components/Question/ListWordQuestions";
 
 const ListQuestions = () => {
   const { admin } = useAdmin();
   const [wordQuestions, setWordQuestions] = useState<MappedWordQuestion[]>();
-  const [sentenceQuestions, setSentenceQuestions] = useState<(MappedSentenceQuestion | undefined)[]>([]);
+  const [sentenceQuestions, setSentenceQuestions] = useState<
+    (MappedSentenceQuestion | undefined)[]
+  >([]);
   const [isPending, setIsPending] = useState(true);
   const routeMatch = useRouteMatch<{
     bookId: string;
@@ -30,11 +35,18 @@ const ListQuestions = () => {
       })
         .then((data) => {
           if (data) {
-            const { wordQuestions, sentenceQuestions } = reduceQuestions(data.listQuestions);
+            const { wordQuestions, sentenceQuestions } = reduceQuestions(
+              data.listQuestions
+            );
             const result = mapWordQuestion(wordQuestions, data.wordsInLesson);
-            console.log(result)
+            console.log(result);
             setWordQuestions(result);
-            const sentenceResult = mapSentenceQuestion(sentenceQuestions, data.sentencesInLesson, data.wordsInLesson);
+            const sentenceResult = mapSentenceQuestion(
+              sentenceQuestions,
+              data.sentencesInLesson,
+              data.wordsInLesson
+            );
+            console.log(sentenceResult);
             setSentenceQuestions(sentenceResult);
           }
         })
@@ -58,8 +70,15 @@ const ListQuestions = () => {
           ) : (
             <Box minHeight={"100%"} py={3} justifyContent="center">
               <Container maxWidth={false} style={{ margin: "auto" }}>
-                <Grid container={true} spacing={3} style={{ justifyContent: "space-around"}}>
-                  <ListWordQuestions questions={wordQuestions} sentenceQuestions={sentenceQuestions}/>
+                <Grid
+                  container={true}
+                  spacing={3}
+                  style={{ justifyContent: "space-around" }}
+                >
+                  <ListWordQuestions
+                    questions={wordQuestions}
+                    sentenceQuestions={sentenceQuestions}
+                  />
                 </Grid>
               </Container>
             </Box>

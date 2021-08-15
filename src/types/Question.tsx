@@ -54,5 +54,7 @@ export type MappedSentenceQuestion = {
     unitId: string
     wrongWords: WordInQuestion[];
     audio?: string;
-    contentSplit?: {_id: string, text: string, wordId: string}[]
+    contentSplit?: {_id: string, text: string, wordId: string}[];
+    lowerBound?: number;
+    upperBound?: number;
 }
