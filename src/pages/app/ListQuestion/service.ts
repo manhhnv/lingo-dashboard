@@ -83,7 +83,7 @@ export const mapWordQuestion = (questions: WordQuestion[], words: WordInLesson[]
             result.push({
                 meaning: "",
                 image: "",
-                focusId: "",
+                focusId: question.focusWord,
                 hash: "",
                 audio: "",
                 choices: choices,

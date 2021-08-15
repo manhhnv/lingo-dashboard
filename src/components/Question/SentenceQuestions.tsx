@@ -3,11 +3,11 @@ import { Box, Grid, Paper, RadioGroup, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
 import { QuestionTypeCode } from "../../enum";
-import BottomSearch from "../BottomSearch";
 import Answer from "./Answer";
 import SentenceAnswer from "./SentenceAnswer";
 import { SentenceInQuestion } from "../../types/Sentence";
 import NewSentenceForm from "../Sentence/addSentence";
+import SearchingBox from "../Searching";
 
 const useStyles = makeStyles({
   root: {
@@ -88,15 +88,14 @@ const SentenceQuestions = (props: MappedSentenceQuestion) => {
                   setChoices={setChoices}
                 />
               )}
-              {DistractedWordQuestions.includes(props.code) && (
-                <BottomSearch
-                  questionId={props.questionId}
-                  setChoices={setChoices}
-                  choices={choices}
-                  focusId={props.focusSentence}
-                  code={props.code}
-                />
+              {[QuestionTypeCode.S12, QuestionTypeCode.S17].includes(props.code) && (
+                <SearchingBox isOnlineSearch={false}/>
               )}
+              {
+                props.code === QuestionTypeCode.S7 && (
+                  <SearchingBox isOnlineSearch={true}/>
+                )
+              }
             </Grid>
           </Grid>
         </Box>

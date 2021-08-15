@@ -51,7 +51,7 @@ const WordQuestion = (props: MappedWordQuestion) => {
               })}
             </Grid>
           </Grid>
-          <SearchingBox />
+          <SearchingBox isOnlineSearch={true}/>
         </Box>
       </Paper>
     </Grid>
