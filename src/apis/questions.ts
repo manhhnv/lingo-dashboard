@@ -93,41 +93,6 @@ export const toggleChoice = async (
   }
 };
 
-export const addChoice = async (token: string, input: AddQuestionChoice) => {
-  try {
-    const { bookId, unitId, levelIndex, questionId, content, code, focusId } =
-      input;
-    const res = await axios.put(
-      `${BaseUrl}/api/admin/question/${bookId}/${unitId}/${levelIndex}/addChoice`,
-      {
-        questionId: questionId,
-        content: content,
-        code: code,
-        focusId: focusId,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    if (res.status === 200 && res.data) {
-      return {
-        word: res.data.word,
-        sentence: res.data.sentence,
-        success: true,
-      };
-    }
-    return {
-      word: null,
-      sentence: null,
-      success: true,
-    };
-  } catch (error) {
-    throw new Error("error");
-  }
-};
-
 export const addChoiceToQuestion = async (
   token: string,
   input: AddChoiceDto

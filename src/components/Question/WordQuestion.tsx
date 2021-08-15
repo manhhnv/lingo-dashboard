@@ -4,6 +4,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import Answer from "./Answer";
 import { useState } from "react";
 import SearchingBox from "../Searching";
+import { SearchWord } from "../../types/Words";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/slices";
+import { addChoiceToQuestion } from "../../apis/questions";
+import { useParams } from "react-router-dom";
+import { WordInQuestion } from "../../types/Word";
+import { BaseImageUrl } from "../../constant";
 
 const useStyles = makeStyles({
   root: {
@@ -32,6 +39,45 @@ const WordQuestion = (props: MappedWordQuestion) => {
   const classes = useStyles();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [choices, setChoices] = useState(props.choices);
+  const admin = useSelector((rootState: RootState) => rootState.admin);
+  const params = useParams<{bookId: string, unitId: string, levelIndex: string}>();
+
+  const addSearchWordToChoices = (word: SearchWord) => {
+    if (admin?.token && word?._id) {
+      addChoiceToQuestion(
+        admin.token,
+        {
+          bookId: params.bookId,
+          unitId: params.unitId,
+          levelIndex: Number(params.levelIndex),
+          questionId: props.questionId,
+          content: word.content,
+          meaning: word.meaning,
+          focusId: props.focusId,
+          code: props.code,
+          choiceId: word._id,
+        }
+      ).then((data) => {
+        if (data && data.success) {
+          const cloned = choices;
+          const wordInQuestion: WordInQuestion = {
+            meaning: word.meaning,
+            image: `${BaseImageUrl}/${word.imageRoot}/${word?.content}.jpg`,
+            hash: "",
+            audio: "",
+            isCorrect: false,
+            content: word.content,
+            word: {
+              _id: word._id,
+              active: true,
+            },
+            questionId: props.questionId,
+          }
+          setChoices([...cloned, wordInQuestion]);
+        }
+      })
+    }
+  }
 
   return (
     <Grid item>
@@ -51,7 +97,7 @@ const WordQuestion = (props: MappedWordQuestion) => {
               })}
             </Grid>
           </Grid>
-          <SearchingBox isOnlineSearch={true}/>
+          <SearchingBox isOnlineSearch={true} callback={addSearchWordToChoices} />
         </Box>
       </Paper>
     </Grid>
