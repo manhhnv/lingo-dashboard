@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/slices";
 import { addChoiceToQuestion } from "../../apis/questions";
 import { WordInQuestion } from "../../types/Word";
+import { SearchWord } from "../../types/Words";
 
 const useStyles = makeStyles({
   root: {
@@ -89,6 +90,43 @@ const SentenceQuestions = (props: MappedSentenceQuestion) => {
       })
     }
   };
+
+  const addExistsWordToChoices = (word: SearchWord) => {
+      if (admin?.token && word?._id) {
+        addChoiceToQuestion(
+          admin.token,
+          {
+          bookId: routeMatch.params.bookId,
+          unitId: routeMatch.params.unitId,
+          levelIndex: Number(routeMatch.params.levelIndex),
+          questionId: props.questionId,
+          content: word.content,
+          meaning: word.meaning,
+          focusId: props.focusSentence,
+          code: props.code,
+          choiceId: word._id,
+          }
+        ).then((data) => {
+          if (data && data.success) {
+            const cloned = choices;
+            const wordInQuestion: WordInQuestion = {
+              meaning: word.meaning,
+              image: "",
+              hash: "",
+              audio: "",
+              isCorrect: false,
+              content: word.content,
+              word: {
+                _id: word._id,
+                active: true,
+              },
+              questionId: props.questionId,
+            }
+            setChoices([...cloned, wordInQuestion]);
+          }
+        })
+      }
+  }
   return (
     <React.Fragment>
       {admin?.token ? (
@@ -136,7 +174,7 @@ const SentenceQuestions = (props: MappedSentenceQuestion) => {
                     props.code
                   ) && <SearchingBox isOnlineSearch={false} callback={addContentAsChoice} />}
                   {props.code === QuestionTypeCode.S7 && (
-                    <SearchingBox isOnlineSearch={true} />
+                    <SearchingBox isOnlineSearch={true} callback={addExistsWordToChoices} />
                   )}
                 </Grid>
               </Grid>
