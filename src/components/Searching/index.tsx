@@ -3,7 +3,7 @@ import Paper from "@material-ui/core/Paper";
 import AutoComplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import { useRef, useState, useEffect, useCallback } from "react";
-import { searchMultipleWords } from "../../apis/Words/index";
+import { searchMultipleWords } from "../../apis/Words";
 import { useAdmin } from "../../AdminContext";
 import { Redirect } from "react-router-dom";
 import { SearchWord } from "../../types/Words";
@@ -72,6 +72,7 @@ export default function SearchingBox(props: SearchingBoxProps) {
                   variant="outlined"
                   value={value}
                   onChange={(e) => setValue(e.target.value)}
+                  onBlur={() => setValue("")}
                 />
               )}
               renderOption={(word) => <WordOption {...word} />}
@@ -96,7 +97,10 @@ export default function SearchingBox(props: SearchingBoxProps) {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => callback(content)}
+                  onClick={() => {
+                    callback(content);
+                    setContent("");
+                  }}
                 >
                   Add
                 </Button>

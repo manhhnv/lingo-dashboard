@@ -39,14 +39,12 @@ const ListQuestions = () => {
               data.listQuestions
             );
             const result = mapWordQuestion(wordQuestions, data.wordsInLesson);
-            console.log(result);
             setWordQuestions(result);
             const sentenceResult = mapSentenceQuestion(
               sentenceQuestions,
               data.sentencesInLesson,
               data.wordsInLesson
             );
-            console.log(sentenceResult);
             setSentenceQuestions(sentenceResult);
           }
         })
