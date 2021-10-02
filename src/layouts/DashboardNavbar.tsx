@@ -1,5 +1,5 @@
 import { Link as RouterLink, useHistory, useLocation } from "react-router-dom";
-import { AppBar, Toolbar, Box, IconButton, Badge, Button, Tooltip } from "@material-ui/core";
+import { AppBar, Toolbar, Box, IconButton, Badge, Button, Tooltip, Checkbox } from "@material-ui/core";
 import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
 import InputIcon from '@material-ui/icons/Input';
 import MenuIcon from '@material-ui/icons/Menu';
