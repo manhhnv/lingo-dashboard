@@ -14,7 +14,6 @@ import SendIcon from "@material-ui/icons/Send";
 import { makeStyles } from "@material-ui/core/styles";
 import { sendNotification } from "apis/notifications";
 import { EditNotification } from "components/Modal/Notification";
-import { useState } from 'react';
 
 const useStyles = makeStyles({
   root: {
@@ -27,15 +26,6 @@ const useStyles = makeStyles({
 
 const NotificationItem = (props: Notification) => {
   const classes = useStyles();
-  const [visible, setVisible] = useState(false);
-
-  const toggleModal = () => {
-    if (visible) {
-      setVisible(false);
-    } else {
-      setVisible(true);
-    }
-  };
 
   const sendNotificationHandle = () => {
     sendNotification(props._id)
