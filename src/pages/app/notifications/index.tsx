@@ -10,6 +10,7 @@ import {
   Grid,
 } from "@material-ui/core";
 import NotificationItem from "./Item";
+import NotificationModal from 'components/Modal/Notification';
 
 const Notifications = () => {
   const admin = useSelector((state: RootState) => state.admin);
@@ -33,6 +34,9 @@ const Notifications = () => {
                 notifications.map((notification, index) => (
                   <NotificationItem {...notification} key={index} />
                 ))}
+            </Grid>
+            <Grid item xl={4} lg={3}>
+              <NotificationModal />
             </Grid>
           </Container>
         </DashboardLayout>

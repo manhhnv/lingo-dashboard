@@ -6,6 +6,9 @@ import { HelmetProvider } from "react-helmet-async";
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import store, { persistor } from "./redux/store";
+import { setupAxios } from './utils/axios';
+
+setupAxios();
 
 ReactDOM.render(
   // <React.StrictMode>
