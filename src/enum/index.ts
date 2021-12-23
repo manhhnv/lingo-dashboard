@@ -29,3 +29,9 @@ export enum Notification {
   ScoreReminder = "ScoreReminder",
   Maintain = "Maintain",
 }
+
+export enum Action {
+    Create,
+    Update,
+    Remove,
+}

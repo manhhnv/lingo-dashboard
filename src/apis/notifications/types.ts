@@ -1,3 +1,5 @@
+import { Notification as HashCode } from 'enum';
+
 export type Notification = {
     _id: string,
     titleLocArgs: string
@@ -12,5 +14,5 @@ export type Notification = {
     icon: string
     body: string,
     tag: string
-    hashCode: string,
+    hashCode: HashCode,
 }

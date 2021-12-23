@@ -1,5 +1,5 @@
 import React from "react";
-import { Notification } from "../../../apis/notifications/types";
+import { Notification } from "apis/notifications/types";
 import {
   Card,
   CardContent,
@@ -9,11 +9,12 @@ import {
   IconButton,
   Chip,
 } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Settings";
 import RemoveIcon from "@material-ui/icons/Delete";
 import SendIcon from "@material-ui/icons/Send";
 import { makeStyles } from "@material-ui/core/styles";
 import { sendNotification } from "apis/notifications";
+import { EditNotification } from "components/Modal/Notification";
+import { useState } from 'react';
 
 const useStyles = makeStyles({
   root: {
@@ -26,6 +27,16 @@ const useStyles = makeStyles({
 
 const NotificationItem = (props: Notification) => {
   const classes = useStyles();
+  const [visible, setVisible] = useState(false);
+
+  const toggleModal = () => {
+    if (visible) {
+      setVisible(false);
+    } else {
+      setVisible(true);
+    }
+  };
+
   const sendNotificationHandle = () => {
     sendNotification(props._id)
       .then((res) => {
@@ -51,9 +62,7 @@ const NotificationItem = (props: Notification) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <IconButton>
-            <EditIcon />
-          </IconButton>
+          <EditNotification notification={props} />
           <IconButton>
             <RemoveIcon color="error" />
           </IconButton>
