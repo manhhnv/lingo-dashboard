@@ -7,7 +7,7 @@ import Dialog from "@material-ui/core/Dialog";
 import React, { useRef, useEffect } from "react";
 import { FormControl } from "@material-ui/core";
 import { Notification as HashCode, Action } from "enum";
-import { createNotification } from "apis/notifications";
+import { createNotification, updateNotification } from "apis/notifications";
 import { Notification } from "apis/notifications/types";
 
 type NotificationFormProps = {
@@ -30,7 +30,7 @@ const NotificationForm = ({
   const saveNotification = () => {
     const title = titleRef.current?.value;
     const body = bodyRef.current?.value;
-    const hashCode = codeRef.current?.value;
+    const hashCode = codeRef.current?.value as HashCode;
 
     if (title && body && hashCode) {
       const createHandler = () => {
@@ -40,8 +40,22 @@ const NotificationForm = ({
           }
         });
       };
+      const updateHandler = () => {
+        updateNotification({
+          _id: notification?._id,
+          title,
+          body,
+          hashCode,
+        }).then((res) => {
+          if (res.status === 200) {
+            toggleModal();
+          }
+        });
+      };
       if (action === Action.Create) {
         createHandler();
+      } else if (action === Action.Update) {
+        updateHandler();
       }
     } else {
       window.alert("Bạn phải nhập đủ thông tin thông báo.");

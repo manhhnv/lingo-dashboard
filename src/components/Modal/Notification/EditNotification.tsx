@@ -27,7 +27,7 @@ const EditNotification = memo(({ notification }: EditNotificationProps) => {
       </IconButton>
       <NotificationForm
         notification={notification}
-        action={Action.Create}
+        action={Action.Update}
         visible={visible}
         toggleModal={toggleModal}
       />

@@ -7,8 +7,8 @@ import {
     Settings as SettingsIcon,
     ShoppingBag as ShoppingBagIcon,
     User as UserIcon,
-    UserPlus as UserPlusIcon,
-    Users as UsersIcon
+    Users as UsersIcon,
+    Database as DatabaseIcon,
 } from 'react-feather';
 import NavItem from "../components/NavItem";
 
@@ -50,9 +50,9 @@ const items = [
         title: 'Login'
     },
     {
-        href: '/register',
-        icon: UserPlusIcon,
-        title: 'Register'
+        href: '/app/cache',
+        icon: DatabaseIcon,
+        title: 'Cache'
     },
     {
         href: '/404',

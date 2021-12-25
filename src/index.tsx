@@ -7,19 +7,20 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import store, { persistor } from "./redux/store";
 import { setupAxios } from './utils/axios';
+import React from 'react';
 
 setupAxios();
 
 ReactDOM.render(
-  // <React.StrictMode>
+  <React.StrictMode>
   <Provider store={store}>
     <PersistGate persistor={persistor}>
       <HelmetProvider>
         <App />
       </HelmetProvider>
     </PersistGate>
-  </Provider>,
-  // </React.StrictMode>,
+  </Provider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 

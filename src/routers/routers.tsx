@@ -8,6 +8,7 @@ import PageListLevel from "../pages/app/ListLevel";
 import PageListQuestion from "../pages/app/ListQuestion";
 import VersionPage from "../pages/app/version";
 import NotificationsPage from "../pages/app/notifications";
+import CachePage from '../pages/app/Cache';
 
 const AppRouter = () => {
     return (
@@ -52,6 +53,11 @@ const AppRouter = () => {
                     exact={true}
                     path='/app/version'
                     component={VersionPage}
+                />
+                <Route
+                    exact={true}
+                    path={'/app/cache'}
+                    component={CachePage}
                 />
                 <Route exact={true} path="/*">
                     <NotFound />

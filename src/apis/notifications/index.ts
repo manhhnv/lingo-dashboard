@@ -37,3 +37,14 @@ export const sendNotification = async (notificationId: string) => {
   });
   return res;
 };
+
+export const updateNotification = async (
+  notification: Partial<Notification>
+) => {
+  const res = await axiosCli.put(`/api/notification/edit/${notification._id}`, {
+    title: notification.title,
+    body: notification.body,
+    hashCode: notification.hashCode,
+  });
+  return res;
+};
