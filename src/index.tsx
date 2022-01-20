@@ -8,6 +8,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import store, { persistor } from "./redux/store";
 import { setupAxios } from './utils/axios';
 import React from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 setupAxios();
 
@@ -17,6 +19,7 @@ ReactDOM.render(
     <PersistGate persistor={persistor}>
       <HelmetProvider>
         <App />
+        <ToastContainer />
       </HelmetProvider>
     </PersistGate>
   </Provider>

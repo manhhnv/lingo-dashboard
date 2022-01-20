@@ -29,7 +29,7 @@ const adminSlice = createSlice({
                 return state;
             }
         },
-        logout: (state, action) => {
+        logout: (state, _) => {
             state = initialState;
             return state;
         },
