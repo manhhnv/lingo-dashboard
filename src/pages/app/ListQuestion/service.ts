@@ -103,6 +103,7 @@ export const mapSentenceQuestion = (
     // eslint-disable-next-line array-callback-return
     return questions.map((question): MappedSentenceQuestion | undefined => {
         const focusSentence = sentencesInLesson.find(s => s._id === question.focusSentence);
+        if (!focusSentence) {return}
         if (question.code === QuestionTypeCode.S10) {
             const choices: SentenceInQuestion[] = [];
             choices.push({
