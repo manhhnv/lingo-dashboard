@@ -15,7 +15,7 @@ export const mapWordQuestion = (questions: WordQuestion[], words: WordInLesson[]
             const hash = md5(word!.content.replace("'", "_"));
             choices.push({
                 meaning: word!.meaning,
-                image: `${BaseImageUrl}/${word!.imageRoot}/${word?.content}.jpg`,
+                image: word?.imageRoot ? `${BaseImageUrl}/${word!.imageRoot}/${word?.content}.jpg` : "",
                 hash: hash,
                 audio: `${BaseAudioUrl}/${hash}.mp3`,
                 isCorrect: true,
@@ -24,7 +24,8 @@ export const mapWordQuestion = (questions: WordQuestion[], words: WordInLesson[]
                     _id: word!._id,
                     active: true
                 },
-                questionId: question._id
+                questionId: question._id,
+                imageUrl: word?.imageUrl ? word.imageUrl : ""
             })
             question.words.map(choice => {
                 const word = words.find(item => item._id === choice._id);
@@ -32,7 +33,7 @@ export const mapWordQuestion = (questions: WordQuestion[], words: WordInLesson[]
                     const hash = md5(word!.content.replace("'", "_"))
                     choices.push({
                         meaning: word!.meaning,
-                        image: `${BaseImageUrl}/${word.imageRoot}/${word?.content}.jpg`,
+                        image: word.imageRoot ? `${BaseImageUrl}/${word.imageRoot}/${word?.content}.jpg` : "",
                         hash: hash,
                         audio: `${BaseAudioUrl}/${hash}.mp3`,
                         isCorrect: false,
@@ -41,14 +42,15 @@ export const mapWordQuestion = (questions: WordQuestion[], words: WordInLesson[]
                             _id: word._id,
                             active: choice.active
                         },
-                        questionId: question._id
+                        questionId: question._id,
+                        imageUrl: word?.imageUrl ? word.imageUrl : ""
                     });
                 }
                 return null;
             });
             result.push({
                 meaning: word!.meaning,
-                image: `${BaseImageUrl}/${word!.imageRoot}/${word?.content}.jpg`,
+                image: word?.imageRoot ? `${BaseImageUrl}/${word!.imageRoot}/${word?.content}.jpg` : "",
                 focusId: question.focusWord,
                 hash: hash,
                 audio: `${BaseAudioUrl}/${hash}.mp3`,
@@ -56,6 +58,7 @@ export const mapWordQuestion = (questions: WordQuestion[], words: WordInLesson[]
                 questionId: question._id,
                 code: question.code,
                 content: question.content,
+                imageUrl: word?.imageUrl ? word.imageUrl : ""
             })
         }
         else {
@@ -66,7 +69,7 @@ export const mapWordQuestion = (questions: WordQuestion[], words: WordInLesson[]
                     const hash = md5(word!.content.replace("'", "_"))
                     choices.push({
                         meaning: word!.meaning,
-                        image: `${BaseImageUrl}/${word.imageRoot}/${word?.content}.jpg`,
+                        image: word.imageRoot ? `${BaseImageUrl}/${word.imageRoot}/${word?.content}.jpg` : "",
                         hash: hash,
                         audio: `${BaseAudioUrl}/${hash}.mp3`,
                         isCorrect: false,
@@ -75,7 +78,8 @@ export const mapWordQuestion = (questions: WordQuestion[], words: WordInLesson[]
                             _id: word._id,
                             active: element.active
                         },
-                        questionId: question._id
+                        questionId: question._id,
+                        imageUrl: word?.imageUrl ? word.imageUrl : ""
                     });
                 }
                 return null;

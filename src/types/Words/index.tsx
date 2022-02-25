@@ -5,6 +5,7 @@ export type SearchWord = {
   content: string;
   meaning: string;
   imageRoot: string;
+  imageUrl?: string;
 };
 
 export type AddNewWordInput = {

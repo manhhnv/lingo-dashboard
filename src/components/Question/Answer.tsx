@@ -33,6 +33,7 @@ const Answer = ({
   image,
   audio,
   questionId,
+  imageUrl,
 }: WordInQuestion) => {
   const classes = useStyles();
   const audioInstance = new Audio(audio);
@@ -65,6 +66,11 @@ const Answer = ({
         {image && (
           <Grid item xs={4}>
             <img src={image} alt="ImageUnit" className={classes.answerImage} />
+          </Grid>
+        )}
+        {imageUrl !== "" && (
+          <Grid item xs={4}>
+            <img src={imageUrl} alt="ImageUnit" className={classes.answerImage} />
           </Grid>
         )}
         <Grid item xs={image ? 3 : 5}>

@@ -3,7 +3,8 @@ export type WordInLesson = {
     content: string,
     types: string[],
     meaning: string,
-    imageRoot: string
+    imageRoot: string,
+    imageUrl?: string,
 }
 
 export type WordSplit = {
@@ -24,4 +25,5 @@ export class WordInQuestion {
         active: boolean;
     }
     questionId?: string;
+    imageUrl?: string;
 }

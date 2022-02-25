@@ -7,7 +7,7 @@ export default function WordOption(props: SearchWord) {
     <Grid container={true} spacing={3}>
       <Grid item={true} xs={4}>
         <img
-          src={`${BaseImageUrl}/${props.imageRoot}/${props.content}.jpg`}
+          src={props?.imageRoot ? `${BaseImageUrl}/${props.imageRoot}/${props.content}.jpg` : props.imageUrl}
           alt="ImageUnit"
           style={{
               width: 50,

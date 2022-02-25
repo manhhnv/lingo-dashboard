@@ -62,7 +62,7 @@ const WordQuestion = (props: MappedWordQuestion) => {
           const cloned = choices;
           const wordInQuestion: WordInQuestion = {
             meaning: word.meaning,
-            image: `${BaseImageUrl}/${word.imageRoot}/${word?.content}.jpg`,
+            image: word.imageRoot ? `${BaseImageUrl}/${word.imageRoot}/${word?.content}.jpg` : "",
             hash: "",
             audio: "",
             isCorrect: false,
@@ -72,6 +72,7 @@ const WordQuestion = (props: MappedWordQuestion) => {
               active: true,
             },
             questionId: props.questionId,
+            imageUrl: word?.imageUrl ? word.imageUrl : ""
           }
           setChoices([...cloned, wordInQuestion]);
         }
@@ -85,7 +86,7 @@ const WordQuestion = (props: MappedWordQuestion) => {
         <Typography className={classes.title}>{props.content}</Typography>
         <Box className={classes.container}>
           <Grid>
-            <img src={props.image} alt="ImageWord" className={classes.image} />
+            <img src={props.image ? props.image : props.imageUrl} alt="ImageWord" className={classes.image} />
             <audio controls>
               <source src={props.audio} />
             </audio>
